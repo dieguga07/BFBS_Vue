@@ -34,12 +34,13 @@ export default{
 
 <section class="login">
 
-    <p>LOGIN</p>
+    <p>REGISTER</p>
 
     <form class="login_form">
 
         <input type="text" placeholder="User">
-        <input type="text" placeholder="Passwoord">
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Passwoord">
 
         <button>ENTER</button>
 

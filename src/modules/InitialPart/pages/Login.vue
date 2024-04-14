@@ -62,7 +62,7 @@ watch:{
     <form class="login_form">
 
         <input type="text" placeholder="User">
-        <input type="text" placeholder="Passwoord">
+        <input type="password" placeholder="Passwoord">
 
         <button>ENTER</button>
 
