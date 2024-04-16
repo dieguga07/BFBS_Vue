@@ -20,7 +20,11 @@ export default{
 
         goLogin(){
             router.push("/public/login")
-        }
+        },
+
+        register(){
+            router.push("/public/login")
+        },
 
     },
 
@@ -41,11 +45,11 @@ export default{
 
 <main>
 
-<section class="login_imgpart">
+<section class="register_imgpart">
 
-    <p class="login_imgpart__title">CHANGE STARTS NOW!</p>
+    <p class="register_imgpart__title">CHANGE STARTS NOW!</p>
 
-    <div class="login_imgpart__registerPart">
+    <div class="register_imgpart__loginPart">
 
         <p>YOU HAVE ACCOUNT ?</p>
         <button @click="goLogin">LOGIN</button>
@@ -56,17 +60,17 @@ export default{
 </section>
 
 
-<section class="login">
+<section class="register">
 
     <p>REGISTER</p>
 
-    <form class="login_form">
+    <form class="register_form">
 
         <input type="text" placeholder="User">
         <input type="email" placeholder="Email">
         <input type="password" placeholder="Passwoord">
 
-        <button>ENTER</button>
+        <button @click="register">GET STARTED</button>
 
     </form>
 
@@ -87,10 +91,10 @@ main{
     flex-direction: row;
     width: 100%;
     background-color: rgb(3, 3, 3, 1);
-    height: 100vh;
+    min-height: 100vh;
 }
 
-.login_imgpart {
+.register_imgpart {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -107,7 +111,7 @@ main{
    
 }
 
-.login {
+.register {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -122,7 +126,7 @@ main{
    
 }
 
-.login_form{
+.register_form{
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -130,7 +134,7 @@ main{
     gap:50px
 }
 
-.login_form input{
+.register_form input{
     border: none;
     color:white;
     background-color: rgb(3, 3, 3, 1);
@@ -138,7 +142,7 @@ main{
     padding-bottom: 5px;
 }
 
-.login_form button{
+.register_form button{
     
     width: 180px;
     color:white;
@@ -151,7 +155,7 @@ main{
     font-size: 20px;
 }
 
-.login_form button:hover{
+.register_form button:hover{
     
     border: 1px solid white;
     color:rgb(3, 3, 3, 1);
@@ -159,38 +163,39 @@ main{
 
 }
 
-.login_form input::placeholder{
+.register_form input::placeholder{
     color:white;
     font-family: "Goldman", sans-serif;
     font-style: normal;
     font-size: 16px;
 }
 
-.login_imgpart__title{
+.register_imgpart__title{
     margin-top: 20px;
     display: flex;
     align-items: center;
     justify-content: start;
     flex-direction: column;
     font-size: 25px;
-    width: 100%;
+    width: 90%;
     height: 60%;
     font-family: "Goldman", sans-serif;
     font-size: 30px;
     font-style: normal;
     font-weight: 400;
+    text-align: center;
 }
 
-.login_imgpart__registerPart{
+.register_imgpart__loginPart{
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     font-size: 15px;
-    gap: 40px;
+    gap: 30px;
 }
 
-.login_imgpart__registerPart button{
+.register_imgpart__loginPart button{
 
     width: 180px;
     border: 0.5px solid white;
@@ -198,14 +203,13 @@ main{
     color: white;
     border-radius: 10px;
     height: 40px;
-     font-family: "Goldman", sans-serif;
+    font-family: "Goldman", sans-serif;
     font-style: normal;
     font-size: 16px;
     
-
 }
 
-.login_imgpart__registerPart button:hover{
+.register_imgpart__loginPart button:hover{
 
     border: 0.5px solid rgb(3, 3, 3, 1);
     background-color: white;

@@ -21,6 +21,10 @@ methods:{
 
     goRegister(){
         router.push("/public/register")
+    },
+
+    login(){
+        router.push("/private/myRoutines")
     }
 
 },
@@ -63,8 +67,8 @@ watch:{
 
         <input type="text" placeholder="User">
         <input type="password" placeholder="Passwoord">
-
-        <button>ENTER</button>
+        
+        <button @click="login">ENTER</button>
 
     </form>
 
@@ -170,12 +174,13 @@ main{
     justify-content: start;
     flex-direction: column;
     font-size: 25px;
-    width: 100%;
+    width: 90%;
     height: 60%;
     font-family: "Goldman", sans-serif;
     font-size: 30px;
     font-style: normal;
     font-weight: 400;
+    text-align: center;
 }
 
 .login_imgpart__registerPart{
@@ -184,7 +189,7 @@ main{
     justify-content: center;
     flex-direction: column;
     font-size: 15px;
-    gap: 40px;
+    gap: 30px;
 }
 
 .login_imgpart__registerPart button{

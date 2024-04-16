@@ -23,7 +23,7 @@ export default{
 
 
 <ul class="footerLinks">
-  <li class="footerLinks__Contac-us"> CONTAC US</li>
+  <li class="footerLinks__Contac-us"> <router-link to="/public/contact">CONTACT US</router-link></li>
   <li class="footerLinks__News"> NEWS</li>
   <li class="footerLinks__About">ABOUT</li>
   <li class="footerLinks__SocialMedia">SOCIAL MEDIA</li>
@@ -78,7 +78,16 @@ font-style: normal;
 font-size: 10px;
 }
 
+.footerLinks__Contac-us a{
+  text-decoration: none;
+  color: white;
 
+}
+
+.footerLinks__Contac-us a:hover{
+  color: rgba(64, 216, 119, 1);
+  
+}
 
 
 
