@@ -2,7 +2,6 @@
 export default{
 
 
-    
 
 
 
@@ -17,10 +16,6 @@ export default{
 <template>
 
 <footer>
-
-
- 
-
 
 <ul class="footerLinks">
   <li class="footerLinks__Contac-us"> <router-link to="/public/contact">CONTACT US</router-link></li>
