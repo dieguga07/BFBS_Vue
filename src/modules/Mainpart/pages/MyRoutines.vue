@@ -26,11 +26,11 @@ export default {
   
       <section>
 
-        <article class="routine_container">
-            
+     
+
           <h1>YOUR ROUTINES</h1>
   
-          <article>
+          <article class="routine_container">
             <h3>Lunes</h3>
   
             <div class="routine_container__routine">
@@ -54,9 +54,10 @@ export default {
                 <button>eliminar</button>
               </div>
             </div>
+
           </article>
 
-        </article>
+        <!-------------------------------------------------- DIVISOR --------------------------------------------->
   
         <article class="current_routine_container">
           
@@ -73,16 +74,24 @@ export default {
 
   
   <style scoped>
+
+
+.routine_container{
+    width: 100%;
+    min-height: 50vh;
+    padding-left: 5%;
+}
+
   
-  .routine_container__routine {
+.routine_container__routine {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     border: 1px solid black;
     min-width: 300px;
     max-width: 90%;
-    gap: 4px;
-  }
+    gap: 30px;
+}
   
   .routine_container__buttons {
     display: flex;
@@ -91,7 +100,11 @@ export default {
   }
   
   .routine_container__buttons button {
+    display: flex;
+    justify-content: end;
     margin-left: 5px;
+    height: 100%;
+    width: 50px;
   }
   
   </style>
