@@ -11,6 +11,7 @@ export default{
     return {
         exercises:[],
         lastPage:false,
+        selectedExercise: null,
     }
     },
 
@@ -37,7 +38,23 @@ export default{
             } finally {
                 this.loader = false;
             }
-        }
+        },
+
+        showExerciseInfoModal(exercise) {
+            // Método para mostrar el modal con la información del ejercicio
+            this.selectedExercise = exercise;
+        },
+
+        closeExerciseInfoModal() {
+            // Método para cerrar el modal
+            this.selectedExercise = null;
+        },
+
+
+
+
+
+
     }
 
 
@@ -54,21 +71,42 @@ export default{
 
         <section class="contenedor_exercises">
 
+              <!-- Modal -->
+        <div class="modal" v-if="selectedExercise">
+
+            <div class="modal__content">
+                <span class="close" @click="closeExerciseInfoModal">&times;</span>
+                <h2>{{ selectedExercise.name }}</h2>
+                <img :src="selectedExercise.image" alt="image">
+                <p>{{ selectedExercise.description }}</p>
+            </div>
+
+        </div>
+
             <div class="card" v-for="exercise in exercises" :key="exercise.id">
 
                 <p>{{exercise.name}}</p>
                 <img :src="exercise.image" alt="image">
 
                 <div class="card__btns">
-                    <a>añadir</a>
-                    <a>ver mas</a>
+
+                    <a><img src="../../../assets/images/plus.svg" alt="añadir"></a>
+                    <a @click="showExerciseInfoModal(exercise)"> <img src="../../../assets/images/info.svg" alt="info"> </a>
+                    
+                    
                 </div>
 
             </div>
 
+
+
+      
+
         </section>
 
         <Footer></Footer>
+
+        
 
     </main>
 
@@ -76,6 +114,38 @@ export default{
 
 
 <style scoped>
+
+
+
+.modal{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.423);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.modal__content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: 400px;
+    height: 500px;
+}
+
+.modal__content img{
+    width: 200px;
+    height: 200px;
+}
+
 
 section{
     min-height: 80vh;
@@ -89,7 +159,7 @@ section{
     padding-top: 50px;
     padding-bottom: 200px;
     margin: 0 150px;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 100px;
 }
 
@@ -125,6 +195,13 @@ section{
     height: 200px;
     object-fit: cover;
 }
+
+.card a img{
+    width: 35px;
+    height:35px;
+
+}
+
 
 
 
