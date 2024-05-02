@@ -26,34 +26,91 @@ export default {
   
       <section>
 
-     
-
           <h1>YOUR ROUTINES</h1>
   
-          <article class="routine_container">
-            <h3>Lunes</h3>
-  
-            <div class="routine_container__routine">
+          <article class="routines_container">
+
            
-              <div class="routine_container__exercise">
-                <p>ejercicio 1</p>
-                <img src="" alt="imagen">
-                <p>series</p>
-                <p>repetitions</p>
-              </div>
+            <div class="routine">
 
-              <div class="routine_container__exercise">
-                <p>ejercicio 1</p>
-                <img src="" alt="imagen">
-                <p>series</p>
-                <p>repetitions</p>
-              </div>
+                    <p id="title">Lunes</p>
 
-              <div class="routine_container__buttons">
-                <button>editar</button>
-                <button>eliminar</button>
-              </div>
+                    <div class="routine_content">
+
+                            <div class="routine__exercise">
+
+                                <p >Title</p>
+                                <img src="../../../assets/images/Frame 18.png" alt="imagen">
+                                <p>repetitions</p>
+                                <p>series</p>
+                                
+                            </div>
+
+                            
+                            <div class="routine__exercise">
+
+                                <p >Title</p>
+                                <img src="../../../assets/images/Frame 18.png" alt="imagen">
+                                <p>repetitions</p>
+                                <p>series</p>
+
+                            </div>
+
+
+
+                            <div class="routine__exercise">
+
+                                <p >Title</p>
+                                <img src="../../../assets/images/Frame 18.png" alt="imagen">
+                                <p>repetitions</p>
+                                <p>series</p>
+
+                            </div>
+
+
+
+                            <div class="routine__exercise">
+
+                                <p >Title</p>
+                                <img src="../../../assets/images/Frame 18.png" alt="imagen">
+                                <p>repetitions</p>
+                                <p>series</p>
+
+                            </div>
+
+
+
+                            <div class="routine__exercise">
+
+                                <p >Title</p>
+                                <img src="../../../assets/images/Frame 18.png" alt="imagen">
+                                <p>repetitions</p>
+                                <p>series</p>
+
+                            </div>
+
+
+
+
+                            <div class="routine__exercise">
+
+                                <p >Title</p>
+                                <img src="../../../assets/images/Frame 18.png" alt="imagen">
+                                <p>repetitions</p>
+                                <p>series</p>
+
+                            </div>
+
+ 
+                            <div class="routine__btn">
+
+                                <button>Editar</button>
+                                <button>Eliminar</button>
+                            </div>
+                    </div>
+
             </div>
+            
 
           </article>
 
@@ -62,6 +119,8 @@ export default {
         <article class="current_routine_container">
           
         </article>
+
+
 
       </section>
 
@@ -76,36 +135,87 @@ export default {
   <style scoped>
 
 
-.routine_container{
+section h1 {
+    margin-top:  5%;
+    margin-bottom:  5%;
+    margin-left: 5%;
+}
+
+.routines_container{
     width: 100%;
-    min-height: 50vh;
+    min-height: 80vh;
     padding-left: 5%;
 }
 
   
-.routine_container__routine {
+.routine {
+  
+   max-width: 80vw;
+  
+}
+
+.routine #title{
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+
+.routine_content{
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black;
+    height: 200px;
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden; 
+ 
+
+}
+
+.routine_content::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}  
+
+.routine_content::-webkit-scrollbar-thumb {
+    background-color: rgba(62, 60, 60, 0.478);
+    border-radius: 5px;
+}  
+
+.routine_content::-webkit-scrollbar-track  {
+    background-color: rgba(255, 255, 255, 0.5); 
+    border-radius: 20px;
+}  
+
+.routine__exercise{
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
     justify-content: flex-start;
-    border: 1px solid black;
-    min-width: 300px;
-    max-width: 90%;
-    gap: 30px;
+    margin-left: 20px;
+    margin-top: 10px;
+    width: 100%;
+    align-items: center;
+    gap:5px;
+
+}
+
+.routine__exercise img{
+    width: 150px;
+    height: 100px;
 }
   
-  .routine_container__buttons {
+
+.routine__btn{
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-  }
-  
-  .routine_container__buttons button {
-    display: flex;
     justify-content: end;
-    margin-left: 5px;
+    width: 20%;
+    margin-left: 20px;
+}
+  
+.routine__btn button{
     height: 100%;
-    width: 50px;
-  }
+}
   
   </style>
   

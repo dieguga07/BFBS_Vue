@@ -25,8 +25,8 @@ export default{
         </ul>
 
         <ul>
-            <li>My routines</li>
-            <li>Make routines</li>
+            <li class="select"><router-link to="/private/myRoutines">My routines</router-link></li>
+            <li><router-link to="/private/makeRoutines">Make routines</router-link></li>
             <li>Admin Panel</li>
         </ul>
 
@@ -61,6 +61,8 @@ header{
     color: white;
     gap: 100px;
     height: 100%;
+    font-family: "Goldman", sans-serif;
+    font-style: normal;
 }
 
 .user_navbar ul{
@@ -69,6 +71,24 @@ header{
     flex-direction: row;
     list-style: none;
     gap: 20px;
+}
+
+
+.user_navbar ul li a{
+    text-decoration: none;
+    color: white;
+    font-family: "Goldman", sans-serif;
+    font-style: normal;
+}
+
+/* 
+.user_navbar ul li a:hover{
+    border-bottom: 1px solid rgba(64, 216, 119, 1);
+} */
+
+.select{
+
+    border-bottom: 1px solid rgba(64, 216, 119, 1);
 }
 
 .name {
