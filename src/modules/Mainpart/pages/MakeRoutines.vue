@@ -2,6 +2,7 @@
 
 import UserNavbar from '../components/UserNavbar.vue';
 import Footer from '../../InitialPart/components/Footer.vue';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 export default{
 
@@ -12,6 +13,8 @@ export default{
         exercises:[],
         lastPage:false,
         selectedExercise: null,
+        searchTerm: '',
+        page:1,
     }
     },
 
@@ -24,8 +27,8 @@ export default{
         async getProducts() {
             try {
                 const token = 
-                "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOTdjMTdmN2QwMTU3NWNjYjkwYzFkN2YwOTg0MGVlMjEyNzRhY2UwNWEwOWJkZGNiZTIwYzRiZWY5ZWNlZTI5Yzk5OGZjMjA2ZDUyYjZlNzEiLCJpYXQiOjE3MTQ1ODg5MTAuNTI2NjY1LCJuYmYiOjE3MTQ1ODg5MTAuNTI2NjcxLCJleHAiOjE3NDYxMjQ5MDkuOTc1MjQ3LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.X-wLLPrZWBjmfp8xDDcodpvLD4iIOg3nKxjDzM_A8yj8oRn5qpiz9wQ_Ghq9isEPoeWXzn1v7-JN8kJ4XHeT1K44D7nDGxGdTOBS_LCFzkg7VLm41tCuqmPCelIL0wCNAHyRIeJ2wKTLYD4IDZP1WvZacayGcb2Y_f310QxvfP3HhDpzLY58CY4ijn7dHBQ7f-gaZVUKS9EnMM58r8Ruyo4Q9QT_XEaBZhDjqQke1-9_qkVs8pEBwxJVKUgFvg00hmbQYoeH1Z9LNUfc7Q0hV7sF6J9BEkqlU1rweDgALjtKem-d_8LpeFYlXXzfShcYG7N2RroxFqIkLmckiw839y9gzNs0AlQMddnPrqqy6Xv_BmBItl5H8yLe7OEBgBxei8e9xd0W-4bUys30SnRo3DBeeXoZEGHXii5-p1LJkF1crCCItbIc6-c-A-N_ShCShCcUj5Kh1YpNEG8bd5PZjCHRy4mSNuBwdMT_MbI3-DrtLN0txESC-ktl-irghrVSaYDg-Gub41Mxegyd5PSK_Q-v74dGGqiQhd4FDE4Bj3v34HPq-lQGtI-oonYI1R-9dWMQjLA0OVwpIcZg2sHPFIG8-SC95vh79bLhksyi2AFsuKo41JDDONYCaB4V-YNB-nPU07FOXBLUH7dAlcd_uL6VUTVBahilr6qJIuFCx4M"; 
-                const respuesta = await fetch(`http://localhost:8000/api/exercise`, {
+                "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOWU4NmM3YWM0ODllYTI3MGViOGI2ZWM3Mjc2ZThkMGRiOTc3ZTZkYWI3NTk1M2UwOGMzNDYzMWUzMjNmY2QxZmVmOTQ1OGU4YWFkOWVjY2QiLCJpYXQiOjE3MTQ5OTA5NzkuNzM1OTU0LCJuYmYiOjE3MTQ5OTA5NzkuNzM1OTYsImV4cCI6MTc0NjUyNjk3OS4wMzQ0MTcsInN1YiI6IjEiLCJzY29wZXMiOltdfQ.mQ_0Fs8m7bn4MwkXf97TPDhM2QVjzGvl20hcTtG-_utBZBHO3YmXGOeishtXdaZlJ8NOxED_3CItD4aoUhRp4Mrvonk2lt6E38kxj-CYOCcPzdPDz0M5bhd1iJ6hz6NIg-q8nbLpLD3m0RAqqYxj8anneiKBTfXUCc7JgVxC3Vi9bUMChpITo9z7O0XVO9h_p7GMHf0O6pPDi5Dai6GFbf_DbngqC26tO1DpBvz42ZSJ2WezCk0aV6y4SwX650trNdRsAqa6miTfv6waIWF5_lls-V9y68qK92fuffAyoWw5ayRxmpOPTdL0mSMiIVdagCMKOtIaFSP18fu2HXNK0Qe1q6_hPjNL4t8c7k9GuAWbGEcRRG8hTUZooQcBLhud5BUIgaiVJVNw4TwqZWUNoxv1tibBIeGdDO7fpEZTtXGT4XfFpdLBli-aSmgYzaXnIjIlm5rtNTmKyryfHjxJ8Vmg3fIjroJoLy08_b3GFN2qR40jGvJmeANpNNXNUvZBqojVDza8JNyHhNj57l5my533CmxwvZB-QG2voiJuV5xl7Q4XbYjOSQTCpeY0i5e2FwiTvnxWuC0NGnTcShpdHRGRexZkfan8Cp6sJ6vWjYAUv4AWB36U8orIThT7AOW2BTAOtJf4wMtRlnWlh1SNNagWnK8esq8XIhlgDVBhPGA"; 
+                const respuesta = await fetch(`http://localhost:8000/api/exercise?page=${this.page}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -41,19 +44,19 @@ export default{
         },
 
         showExerciseInfoModal(exercise) {
-            // Método para mostrar el modal con la información del ejercicio
             this.selectedExercise = exercise;
         },
 
         closeExerciseInfoModal() {
-            // Método para cerrar el modal
             this.selectedExercise = null;
         },
 
+        searchExercise() {
+            return this.exercises.filter(exercise => 
+                exercise.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+            )
 
-
-
-
+        },
 
     }
 
@@ -69,21 +72,34 @@ export default{
 
         <UserNavbar></UserNavbar>   
 
+
+        <section class="contenedor">
+
+            <p>MAKE YOUR NEW ROUTINE</p>
+            
+            <div>
+                <input type="search" v-model="searchTerm" placeholder="Search...">
+                <i class="fa-solid fa-filter fa-2xl" style="color: #000000;"></i>
+            </div>
+        
+
+        </section>
+       
         <section class="contenedor_exercises">
 
-              <!-- Modal -->
-        <div class="modal" v-if="selectedExercise">
+            <!-- Modal -->
+            <div class="modal" v-if="selectedExercise">
 
-            <div class="modal__content">
-                <span class="close" @click="closeExerciseInfoModal">&times;</span>
-                <h2>{{ selectedExercise.name }}</h2>
-                <img :src="selectedExercise.image" alt="image">
-                <p>{{ selectedExercise.description }}</p>
+                <div class="modal__content">
+                <a class="close_modal" @click="closeExerciseInfoModal"> <i class="fa-solid fa-circle-xmark fa-2xl" style="color: #000000;"></i> </a>
+                    <h2>{{ selectedExercise.name }}</h2>
+                    <img :src="selectedExercise.image" alt="image">
+                    <p>{{ selectedExercise.description }}</p>
+                </div>
+
             </div>
 
-        </div>
-
-            <div class="card" v-for="exercise in exercises" :key="exercise.id">
+            <div class="card" v-for="exercise in searchExercise()" :key="exercise.id">
 
                 <p>{{exercise.name}}</p>
                 <img :src="exercise.image" alt="image">
@@ -93,14 +109,10 @@ export default{
                     <a><img src="../../../assets/images/plus.svg" alt="añadir"></a>
                     <a @click="showExerciseInfoModal(exercise)"> <img src="../../../assets/images/info.svg" alt="info"> </a>
                     
-                    
                 </div>
 
             </div>
 
-
-
-      
 
         </section>
 
@@ -115,14 +127,45 @@ export default{
 
 <style scoped>
 
+.contenedor{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+    height: 100px;
+    gap: 40px;
+    font-family: "Goldman", sans-serif;
+    font-style: normal;
+}
 
+.contenedor p{
+    font-size: 4vw;
+    font-family: "Goldman", sans-serif;
+    font-style: normal;
+}
+
+.contenedor input{
+    font-family: "Goldman", sans-serif;
+    font-style: normal;
+    max-width: 40%;
+    min-height: 40px;
+    min-width: 250px;
+    border: 1px solid black;
+    padding-left: 20px;
+   
+}
+
+.contenedor input::placeholder{
+     color: rgba(0, 0, 0, 0.462);
+ }
 
 .modal{
     position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.423);
+    background-color: rgba(0, 0, 0, 0.8);
     position: fixed;
     top: 0;
     left: 0;
@@ -131,23 +174,50 @@ export default{
     z-index: 2;
 }
 
+.fa-2xl {
+    font-size: 32px;
+}
+
+.fa-solid{
+    margin-left: 20px
+}
+
+.modal__content a{
+    margin-top: 30px;
+    margin-left: 15px;
+    display: flex;
+    align-self: start;
+   
+}
+
+.modal__content p{
+    width: 80%;
+    font-family: "Goldman", sans-serif;
+    font-style: normal;
+   
+}
+
 .modal__content{
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     background-color: white;
-    width: 400px;
-    height: 500px;
+    width: 55vh;
+    height: 75vh;
+    border-radius: 40px;
+    gap: 40px;
+    font-family: "Goldman", sans-serif;
+    font-style: normal;
 }
 
 .modal__content img{
-    width: 200px;
-    height: 200px;
+    width: 70%;
+    height:40%;
+  
 }
 
 
-section{
+section .contenedor_exercises{
     min-height: 80vh;
 }
 
@@ -161,6 +231,8 @@ section{
     margin: 0 150px;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 100px;
+    font-family: "Goldman", sans-serif;
+    font-style: normal;
 }
 
 .card{
@@ -177,6 +249,8 @@ section{
     margin-bottom: 10px;
     font-size: 15px;
     max-width: 100%;
+    font-family: "Goldman", sans-serif;
+    font-style: normal;
 }
 
 .card__btns{

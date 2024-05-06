@@ -7,6 +7,7 @@ export default {
 
   data() {
     return {
+        routines:[]
      
     }
   },
@@ -101,17 +102,99 @@ export default {
 
                             </div>
 
- 
-                            <div class="routine__btn">
+                    </div>
 
-                                <button>Editar</button>
-                                <button>Eliminar</button>
-                            </div>
+
+                    <div class="routine__btn">
+
+                        <button>Editar</button>
+                        <button>Eliminar</button>
                     </div>
 
             </div>
-            
 
+            <div class="routine">
+
+<p id="title">Lunes</p>
+
+<div class="routine_content">
+
+        <div class="routine__exercise">
+
+            <p >Title</p>
+            <img src="../../../assets/images/Frame 18.png" alt="imagen">
+            <p>repetitions</p>
+            <p>series</p>
+            
+        </div>
+
+        
+        <div class="routine__exercise">
+
+            <p >Title</p>
+            <img src="../../../assets/images/Frame 18.png" alt="imagen">
+            <p>repetitions</p>
+            <p>series</p>
+
+        </div>
+
+
+
+        <div class="routine__exercise">
+
+            <p >Title</p>
+            <img src="../../../assets/images/Frame 18.png" alt="imagen">
+            <p>repetitions</p>
+            <p>series</p>
+
+        </div>
+
+
+
+        <div class="routine__exercise">
+
+            <p >Title</p>
+            <img src="../../../assets/images/Frame 18.png" alt="imagen">
+            <p>repetitions</p>
+            <p>series</p>
+
+        </div>
+
+
+
+        <div class="routine__exercise">
+
+            <p >Title</p>
+            <img src="../../../assets/images/Frame 18.png" alt="imagen">
+            <p>repetitions</p>
+            <p>series</p>
+
+        </div>
+
+
+
+
+        <div class="routine__exercise">
+
+            <p >Title</p>
+            <img src="../../../assets/images/Frame 18.png" alt="imagen">
+            <p>repetitions</p>
+            <p>series</p>
+
+        </div>
+
+</div>
+
+
+<div class="routine__btn">
+
+    <button>Editar</button>
+    <button>Eliminar</button>
+</div>
+
+            </div>
+
+            
           </article>
 
         <!-------------------------------------------------- DIVISOR --------------------------------------------->
@@ -132,7 +215,7 @@ export default {
   
 
   
-  <style scoped>
+<style scoped>
 
 
 section h1 {
@@ -149,9 +232,11 @@ section h1 {
 
   
 .routine {
-  
-   max-width: 80vw;
-  
+    display: flex;
+    flex-direction: column;
+    max-width: 80vw;
+    position: relative;
+    margin-top: 40px;
 }
 
 .routine #title{
@@ -160,14 +245,14 @@ section h1 {
 }
 
 .routine_content{
+
     display: flex;
     flex-direction: row;
     border: 1px solid black;
     height: 200px;
-    width: 100%;
+    width: calc(100% - 50px);
     overflow-x: scroll;
     overflow-y: hidden; 
- 
 
 }
 
@@ -191,13 +276,14 @@ section h1 {
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: flex-start;
-    margin-left: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
     margin-top: 10px;
     width: 100%;
     align-items: center;
-    gap:5px;
-
+    gap: 5px;
 }
+
 
 .routine__exercise img{
     width: 150px;
@@ -206,16 +292,29 @@ section h1 {
   
 
 .routine__btn{
+    position: absolute;
+    top: 0;
+    right: 0;
     display: flex;
     flex-direction: column;
-    justify-content: end;
-    width: 20%;
-    margin-left: 20px;
+    justify-content: flex-end;
+    height: 100%;
+  
 }
   
 .routine__btn button{
-    height: 100%;
+    height: 41%;
+    
 }
-  
-  </style>
+
+
+.current_routine_container{
+
+    width: 100%;
+    min-height: 50%vh;
+
+
+}
+
+</style>
   
