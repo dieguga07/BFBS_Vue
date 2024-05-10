@@ -7,7 +7,7 @@ export default {
 
   data() {
     return {
-        routines:[]
+        routines:[1]
      
     }
   },
@@ -22,76 +22,29 @@ export default {
 </script>
 
 <template>
+
     <main>
-      <UserNavbar></UserNavbar>
-  
-      <section>
 
-          <h1>YOUR ROUTINES</h1>
+        <UserNavbar></UserNavbar>
   
-          <article class="routines_container">
+        <section>
 
-           
-            <div class="routine">
+            <p id="your_routines">YOUR ROUTINES</p>
+  
+            <article class="routines_container">
+
+
+            <div v-if="routines.length === 0" class="no_routines">
+                <p>No tienes rutinas creadas.</p>
+            </div>
+
+
+           <div v-if="routines.length !== 0" >
+                <section class="routine">
 
                     <p id="title">Lunes</p>
 
                     <div class="routine_content">
-
-                            <div class="routine__exercise">
-
-                                <p >Title</p>
-                                <img src="../../../assets/images/Frame 18.png" alt="imagen">
-                                <p>repetitions</p>
-                                <p>series</p>
-                                
-                            </div>
-
-                            
-                            <div class="routine__exercise">
-
-                                <p >Title</p>
-                                <img src="../../../assets/images/Frame 18.png" alt="imagen">
-                                <p>repetitions</p>
-                                <p>series</p>
-
-                            </div>
-
-
-
-                            <div class="routine__exercise">
-
-                                <p >Title</p>
-                                <img src="../../../assets/images/Frame 18.png" alt="imagen">
-                                <p>repetitions</p>
-                                <p>series</p>
-
-                            </div>
-
-
-
-                            <div class="routine__exercise">
-
-                                <p >Title</p>
-                                <img src="../../../assets/images/Frame 18.png" alt="imagen">
-                                <p>repetitions</p>
-                                <p>series</p>
-
-                            </div>
-
-
-
-                            <div class="routine__exercise">
-
-                                <p >Title</p>
-                                <img src="../../../assets/images/Frame 18.png" alt="imagen">
-                                <p>repetitions</p>
-                                <p>series</p>
-
-                            </div>
-
-
-
 
                             <div class="routine__exercise">
 
@@ -107,103 +60,49 @@ export default {
 
                     <div class="routine__btn">
 
-                        <button>Editar</button>
-                        <button>Eliminar</button>
+                        <button><i class="fa-solid fa-pen fa-2xl" style="color: #000000;"></i></button>
+                        <button><i class="fa-solid fa-trash fa-2xl" style="color: #000000;"></i></button>
                     </div>
 
-            </div>
+                </section>
 
-            <div class="routine">
-
-<p id="title">Lunes</p>
-
-<div class="routine_content">
-
-        <div class="routine__exercise">
-
-            <p >Title</p>
-            <img src="../../../assets/images/Frame 18.png" alt="imagen">
-            <p>repetitions</p>
-            <p>series</p>
+           </div>
             
-        </div>
-
-        
-        <div class="routine__exercise">
-
-            <p >Title</p>
-            <img src="../../../assets/images/Frame 18.png" alt="imagen">
-            <p>repetitions</p>
-            <p>series</p>
-
-        </div>
-
-
-
-        <div class="routine__exercise">
-
-            <p >Title</p>
-            <img src="../../../assets/images/Frame 18.png" alt="imagen">
-            <p>repetitions</p>
-            <p>series</p>
-
-        </div>
-
-
-
-        <div class="routine__exercise">
-
-            <p >Title</p>
-            <img src="../../../assets/images/Frame 18.png" alt="imagen">
-            <p>repetitions</p>
-            <p>series</p>
-
-        </div>
-
-
-
-        <div class="routine__exercise">
-
-            <p >Title</p>
-            <img src="../../../assets/images/Frame 18.png" alt="imagen">
-            <p>repetitions</p>
-            <p>series</p>
-
-        </div>
-
-
-
-
-        <div class="routine__exercise">
-
-            <p >Title</p>
-            <img src="../../../assets/images/Frame 18.png" alt="imagen">
-            <p>repetitions</p>
-            <p>series</p>
-
-        </div>
-
-</div>
-
-
-<div class="routine__btn">
-
-    <button>Editar</button>
-    <button>Eliminar</button>
-</div>
-
-            </div>
-
-            
-          </article>
+        </article>
 
         <!-------------------------------------------------- DIVISOR --------------------------------------------->
   
         <article class="current_routine_container">
+
+            <p id="create_title">YOUR CURRENT CREATION</p>
+
+            <section class="routine">
+
+                    <p id="title">Lunes</p>
+
+                    <div class="routine_content">
+
+                            <div class="routine__exercise">
+
+                                <p >Title</p>
+                                <img src="../../../assets/images/Frame 18.png" alt="imagen">
+                                <p>repetitions</p>
+                                <p>series</p>
+
+                            </div>
+
+                    </div>
+
+
+                    <div class="routine__btn">
+
+                        <button id="add"><i class="fa-solid fa-circle-plus fa-flip-horizontal fa-2xl" style="color: #000000;"></i></button>
+                        <button id="remove"> <i class="fa-solid fa-trash fa-2xl" style="color: #000000;"></i></button>
+                    </div>
+
+                </section>
           
         </article>
-
-
 
       </section>
 
@@ -214,22 +113,42 @@ export default {
 </template>
   
 
-  
 <style scoped>
 
+#add{
+    background-color: rgba(64, 216, 119, 1);
+    border: 1px solid black;
 
-section h1 {
+}
+
+#remove{
+    background-color: rgba(254, 83, 83, 1);
+    border: 1px solid black;
+}
+
+
+#your_routines {
     margin-top:  5%;
     margin-bottom:  5%;
     margin-left: 5%;
+    font-size: 30px;
+    font-family: "Goldman", sans-serif;
+    font-style: normal;
 }
 
 .routines_container{
     width: 100%;
-    min-height: 80vh;
+    min-height: 50vh;
     padding-left: 5%;
 }
 
+.no_routines{
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 8vh;
+}
   
 .routine {
     display: flex;
@@ -242,6 +161,8 @@ section h1 {
 .routine #title{
     margin-bottom: 10px;
     font-size: 30px;
+    font-family: "Goldman", sans-serif;
+    font-style: normal;
 }
 
 .routine_content{
@@ -250,9 +171,10 @@ section h1 {
     flex-direction: row;
     border: 1px solid black;
     height: 200px;
-    width: calc(100% - 50px);
+    width: calc(100% - 70px);
     overflow-x: scroll;
     overflow-y: hidden; 
+
 
 }
 
@@ -273,15 +195,15 @@ section h1 {
 
 .routine__exercise{
     display: flex;
-    flex-wrap: wrap;
     flex-direction: column;
-    justify-content: flex-start;
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 10px;
-    width: 100%;
+    widows: 200px;
     align-items: center;
     gap: 5px;
+    font-family: "Goldman", sans-serif;
+    font-style: normal;
 }
 
 
@@ -293,27 +215,35 @@ section h1 {
 
 .routine__btn{
     position: absolute;
-    top: 0;
-    right: 0;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     height: 100%;
+    right: 21px;
   
 }
   
 .routine__btn button{
     height: 41%;
+    width: 50px;
     
 }
 
 
 .current_routine_container{
+    min-height: 50vh;
+    margin-left: 5%;
+    margin-bottom: 5%;
+    font-family: "Goldman", sans-serif;
+    font-style: normal;
+}
 
-    width: 100%;
-    min-height: 50%vh;
 
-
+.current_routine_container #create_title {
+    margin-bottom:  5%;
+    font-size: 30px;
+    font-family: "Goldman", sans-serif;
+    font-style: normal;
 }
 
 </style>

@@ -3,6 +3,7 @@
 import UserNavbar from '../components/UserNavbar.vue';
 import Footer from '../../InitialPart/components/Footer.vue';
 import '@fortawesome/fontawesome-free/css/all.css';
+import router from '../../../router/router';
 
 export default{
 
@@ -58,6 +59,10 @@ export default{
 
         },
 
+        pushexercise(exercise){
+            router.push(`/private/addRoutines/${exercise.id}`);
+        }
+
     }
 
 
@@ -106,7 +111,7 @@ export default{
 
                 <div class="card__btns">
 
-                    <a><img src="../../../assets/images/plus.svg" alt="añadir"></a>
+                    <a @click="pushexercise(exercise)"><img src="../../../assets/images/plus.svg" alt="añadir"></a>
                     <a @click="showExerciseInfoModal(exercise)"> <img src="../../../assets/images/info.svg" alt="info"> </a>
                     
                 </div>
@@ -184,7 +189,6 @@ export default{
 
 .modal__content a{
     margin-top: 30px;
-    margin-left: 15px;
     display: flex;
     align-self: start;
    
@@ -194,7 +198,7 @@ export default{
     width: 80%;
     font-family: "Goldman", sans-serif;
     font-style: normal;
-   
+    text-align: justify;
 }
 
 .modal__content{
@@ -251,6 +255,7 @@ section .contenedor_exercises{
     max-width: 100%;
     font-family: "Goldman", sans-serif;
     font-style: normal;
+    text-align: center;
 }
 
 .card__btns{

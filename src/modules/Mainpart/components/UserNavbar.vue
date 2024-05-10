@@ -3,7 +3,12 @@ export default{
 
 
 
+data() {
+    return {
 
+        admin:false,
+    }
+},
 
 
 
@@ -17,10 +22,10 @@ export default{
 
 <header>
 
-    <nav class="user_navbar">
+    <nav class="user_navbar" v-if="admin">
 
         <ul>
-            <li>8</li>
+            <li><i class="fa-solid fa-user fa-2xl"></i></li>
             <li class="name">UserName</li>
         </ul>
 
@@ -31,25 +36,41 @@ export default{
         </ul>
 
         <ul>
-            <li>Ajustes</li>
+            <li><i class="fa-solid fa-gear fa-2xl" style="color: #ffffff;"></i></li>
+        </ul>
+
+    </nav>
+
+
+    <nav class="user_navbar" v-if="!admin">
+
+        <ul>
+            <li><i class="fa-solid fa-user fa-2xl"></i></li>
+            <li class="name">UserName</li>
+        </ul>
+
+        <ul>
+            <li class="select"><router-link to="/private/myRoutines">My routines</router-link></li>
+            <li><router-link to="/private/makeRoutines">Make routines</router-link></li>
+        </ul>
+
+        <ul>
+            <li><i class="fa-solid fa-gear fa-2xl" style="color: #ffffff;"></i></li>
         </ul>
 
     </nav>
 
 </header>
 
-
-
 </template>
 
 
 <style scoped>
 
-
 header{
     background-color: rgba(9, 9, 9, 1);
     width: 100%;
-    height: 50px;
+    height: 60px;
 }
 
 .user_navbar{
@@ -59,7 +80,7 @@ header{
     flex-direction: row;
     list-style: none;
     color: white;
-    gap: 100px;
+    gap: 10vw;;
     height: 100%;
     font-family: "Goldman", sans-serif;
     font-style: normal;

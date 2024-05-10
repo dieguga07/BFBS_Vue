@@ -58,22 +58,8 @@ const routes = [
                 //         next()
                 //     }
                 // },
-
                 component: () => import("../modules/Mainpart/pages/MyRoutines.vue")
             },
-            {
-                path: 'addRoutines',
-                // beforeEnter:(to,from,next) =>{
-                //     const authentication = AuthenticationState()
-                //     if(!authentication){
-                //         next('/public')
-                //     }else{
-                //         next()
-                //     }
-                // },
-                component: () => import("../modules/Mainpart/pages/AddRoutine.vue")
-            },
-
             {
                 path: 'addRoutines/:id',
                 // beforeEnter:(to,from,next) =>{
@@ -85,6 +71,7 @@ const routes = [
                 //     }
                 // },
                 component: () => import("../modules/Mainpart/pages/SingularRoutine.vue")
+              
             },
         ]
     },
