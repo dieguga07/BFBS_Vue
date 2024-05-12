@@ -98,7 +98,7 @@ export default{
                 <div class="modal__content">
                 <a class="close_modal" @click="closeExerciseInfoModal"> <i class="fa-solid fa-circle-xmark fa-2xl" style="color: #000000;"></i> </a>
                     <h2>{{ selectedExercise.name }}</h2>
-                    <img :src="selectedExercise.image" alt="image">
+                    <img :src="selectedExercise.image" :alt="selectedExercise.name">
                     <p>{{ selectedExercise.description }}</p>
                 </div>
 
@@ -107,7 +107,7 @@ export default{
             <div class="card" v-for="exercise in searchExercise()" :key="exercise.id">
 
                 <p>{{exercise.name}}</p>
-                <img :src="exercise.image" alt="image">
+                <img :src="exercise.image" :alt="exercise.name">
 
                 <div class="card__btns">
 

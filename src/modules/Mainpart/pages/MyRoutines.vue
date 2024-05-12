@@ -3,20 +3,48 @@ import UserNavbar from '../components/UserNavbar.vue';
 import Footer from '../../InitialPart/components/Footer.vue';
 
 export default {
-  components: { UserNavbar, Footer },
+    components: { UserNavbar, Footer },
 
-  data() {
-    return {
-        routines:[1]
-     
+    data() {
+        return {
+            routines:[],
+            storedRoutines:[],
+            modalRemoveCurrentRoutine:false
+        }
+    },
+    
+    methods: {
+
+        addCurrentRoutine(){
+           
+            localStorage.removeItem('currentRoutine')
+            this.storedRoutines = []
+
+        },
+
+        removeAllCurrentRutineModal(){
+            
+        },
+
+        removeAllCurrentRutine(){
+           
+           localStorage.removeItem('currentRoutine')
+           this.storedRoutines = []
+           
+       }
+    
+    },
+
+    mounted() {
+
+        const storedData = localStorage.getItem('currentRoutine')
+
+        if (storedData) {
+            this.storedRoutines = JSON.parse(storedData)
+           console.log(this.storedRoutines)
+        }
+
     }
-  },
- 
-  methods: {
- 
-  }
-
-  
 }
 
 </script>
@@ -31,7 +59,7 @@ export default {
 
             <p id="your_routines">YOUR ROUTINES</p>
   
-            <article class="routines_container">
+            <article class="routines_container" >
 
 
             <div v-if="routines.length === 0" class="no_routines">
@@ -48,8 +76,8 @@ export default {
 
                             <div class="routine__exercise">
 
-                                <p >Title</p>
-                                <img src="../../../assets/images/Frame 18.png" alt="imagen">
+                                <p>exercise</p>
+                                <img src="" alt="">
                                 <p>repetitions</p>
                                 <p>series</p>
 
@@ -82,22 +110,22 @@ export default {
 
                     <div class="routine_content">
 
-                            <div class="routine__exercise">
+                            <div class="routine__exercise" v-for="exercise in storedRoutines.routine" :key="index">
 
-                                <p >Title</p>
-                                <img src="../../../assets/images/Frame 18.png" alt="imagen">
+                                <p>{{ exercise.name}}</p>
+                                <img :src="exercise.image" :alt="exercise.name">
                                 <p>repetitions</p>
                                 <p>series</p>
 
                             </div>
 
                     </div>
-
+                    
 
                     <div class="routine__btn">
 
-                        <button id="add"><i class="fa-solid fa-circle-plus fa-flip-horizontal fa-2xl" style="color: #000000;"></i></button>
-                        <button id="remove"> <i class="fa-solid fa-trash fa-2xl" style="color: #000000;"></i></button>
+                        <button id="add" @click="addCurrentRoutine()"  ><i class="fa-solid fa-circle-plus fa-flip-horizontal fa-2xl" style="color: #000000;"></i></button>
+                        <button id="remove" @click="removeAllCurrentRutine()"> <i class="fa-solid fa-trash fa-2xl" style="color: #000000;"></i></button>
                     </div>
 
                 </section>
@@ -224,7 +252,7 @@ export default {
 }
   
 .routine__btn button{
-    height: 41%;
+    height: 40.9%;
     width: 50px;
     
 }
