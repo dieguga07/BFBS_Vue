@@ -22,15 +22,19 @@ export default {
 
         },
 
-        removeAllCurrentRutineModal(){
-            
+        closeAllCurrentRutineModal(){
+            this.modalRemoveCurrentRoutine = false
+        },
+
+        openAllCurrentRutineModal(){
+            this.modalRemoveCurrentRoutine = true
         },
 
         removeAllCurrentRutine(){
            
            localStorage.removeItem('currentRoutine')
            this.storedRoutines = []
-           
+           this.closeAllCurrentRutineModal()
        }
     
     },
@@ -56,6 +60,28 @@ export default {
         <UserNavbar></UserNavbar>
   
         <section>
+
+
+            <!-- All Current Routine Modal -->
+
+            <div class="modal" v-if="modalRemoveCurrentRoutine">
+
+                <div class="modal__content">
+                <a class="close_modal" @click="closeAllCurrentRutineModal"> <i class="fa-solid fa-circle-xmark fa-2xl" style="color: #000000;"></i> </a>
+
+                    <p>Estas seguro de que quieres borrar la rutina actual entera</p>
+
+                    <div class="modal__btn">
+                        <button @click="removeAllCurrentRutine" class="yes_btn"> Si </button>
+                        <button @click="closeAllCurrentRutineModal" class="no_btn" > No </button>
+                    </div>
+                    
+
+                </div>
+
+            </div>
+
+
 
             <p id="your_routines">YOUR ROUTINES</p>
   
@@ -124,8 +150,8 @@ export default {
 
                     <div class="routine__btn">
 
-                        <button id="add" @click="addCurrentRoutine()"  ><i class="fa-solid fa-circle-plus fa-flip-horizontal fa-2xl" style="color: #000000;"></i></button>
-                        <button id="remove" @click="removeAllCurrentRutine()"> <i class="fa-solid fa-trash fa-2xl" style="color: #000000;"></i></button>
+                        <button id="add" @click="addCurrentRoutine"  ><i class="fa-solid fa-circle-plus fa-flip-horizontal fa-2xl" style="color: #000000;"></i></button>
+                        <button id="remove" @click="openAllCurrentRutineModal"> <i class="fa-solid fa-trash fa-2xl position_close" style="color: #000000;"></i></button>
                     </div>
 
                 </section>
@@ -142,6 +168,77 @@ export default {
   
 
 <style scoped>
+
+.modal{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+
+.modal__content a{
+    margin-top: 20px;
+    display: flex;
+    align-self: start;
+   
+}
+
+.modal__content i{
+    padding-top: 5px;
+    padding-left: 10px;
+}
+
+.modal__btn  {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.modal__btn button {
+    width: 20vh;
+    height: 5vh;
+    border: 1px solid black;
+}
+
+.yes_btn{
+    background-color: rgba(64, 216, 119, 1);
+}
+
+
+.no_btn{
+    background-color: rgba(241, 90, 99, 1);
+}
+
+.modal__content p{
+    width: 80%;
+    font-family: "Goldman", sans-serif;
+    font-style: normal;
+    text-align: justify;
+    text-align: center;
+}
+
+.modal__content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    width: 70vh;
+    height: 30vh;
+    border-radius: 25px;
+    gap: 40px;
+    font-family: "Goldman", sans-serif;
+    font-style: normal;
+}
+
 
 #add{
     background-color: rgba(64, 216, 119, 1);
