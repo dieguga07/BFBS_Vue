@@ -39,8 +39,6 @@ export default{
                 console.log(this.exercises);
             } catch (error) {
                 console.error("Error al obtener los productos:", error);
-            } finally {
-                this.loader = false;
             }
         },
 

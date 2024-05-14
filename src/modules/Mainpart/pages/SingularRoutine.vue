@@ -14,7 +14,9 @@ export default{
         return {
             id:null,
             exercise:[],
-            currentRutine:CurrentRoutine()
+            currentRutine:CurrentRoutine(),
+            series: 0,
+            repetitions: 0
         }
     },
 
@@ -51,9 +53,27 @@ export default{
 
 
         addToRoutine(exercise){
-           this.currentRutine.addExercise(exercise);
-           router.push("/private/myRoutines")
-           console.log(exercise);
+
+            const seriesValue = this.series;
+            const repetitionsValue = this.repetitions;
+
+            const exerciseData = {
+                id: exercise.id,
+                name:exercise.name,
+                image:exercise.image,
+                serie: seriesValue,
+                repetition: repetitionsValue
+            };
+
+
+            let currentRoutine = this.currentRutine.exercises;
+
+            currentRoutine.push(exerciseData);
+
+            this.currentRutine.exercises = currentRoutine;
+
+            router.push("/private/myRoutines");
+            console.log(exerciseData);
         }
 
 
@@ -83,9 +103,9 @@ export default{
 
         <form class="container_form">
 
-            <input type="text" placeholder="Series">
+            <input type="text" placeholder="Series" v-model="series">
 
-            <input type="text" placeholder="Repetitions">
+            <input type="text" placeholder="Repetitions"  v-model="repetitions">
 
             <button @click="addToRoutine(exercise)">ADD EXERCISE</button>
 

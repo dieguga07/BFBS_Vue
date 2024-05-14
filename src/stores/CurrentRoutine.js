@@ -6,7 +6,7 @@ export const CurrentRoutine = defineStore('currentRoutine',{
 
     state: () =>({
 
-        routine:[]
+        exercises:[]
 
     }),
 
@@ -14,8 +14,12 @@ export const CurrentRoutine = defineStore('currentRoutine',{
     actions:{
 
         addExercise(exercise) {
-            this.routine.push(exercise);
+            this.exercises.push(exercise);
         },
+
+        removeExercises(){
+            this.exercises = []
+        }
 
       },
 
