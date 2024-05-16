@@ -87,6 +87,9 @@ export default {
         }
 
     }
+
+
+
 }
 
 </script>
@@ -98,8 +101,6 @@ export default {
         <UserNavbar></UserNavbar>
   
         <section>
-
-
            
              <!-- All Current Routine Modal -->
 
@@ -114,18 +115,14 @@ export default {
                         <button @click="removeAllCurrentRutine" class="yes_btn"> Si </button>
                         <button @click="closeAllCurrentRutineModal" class="no_btn" > No </button>
                     </div>
-                    
-
+                
                 </div>
 
             </div>
 
-
-
             <p id="your_routines">YOUR ROUTINES</p>
   
             <article class="routines_container" >
-
 
             <div v-if="routines.length === 0" class="no_routines">
                 <p>No tienes rutinas creadas.</p>
@@ -150,7 +147,6 @@ export default {
 
                     </div>
 
-
                     <div class="routine__btn">
 
                         <button><i class="fa-solid fa-pen fa-2xl" style="color: #000000;"></i></button>
@@ -166,9 +162,6 @@ export default {
         <!-------------------------------------------------- DIVISOR --------------------------------------------->
   
         <article class="current_routine_container">
-
-
-
 
             <p id="create_title">YOUR CURRENT CREATION</p>
 
@@ -188,7 +181,6 @@ export default {
                             </div>
 
                     </div>
-                    
 
                     <div class="routine__btn2">
 
