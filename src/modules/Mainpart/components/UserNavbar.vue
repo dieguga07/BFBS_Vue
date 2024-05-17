@@ -3,14 +3,21 @@ export default{
 
 
 
-data() {
-    return {
+    data() {
+        return {
 
-        admin:false,
-    }
-},
+            admin:false,
+            selection: true,
+        }
+    },
 
+    methods: {
 
+        changeSelection() {
+            this.selection = !this.selection;
+            console.log( this.selection );
+        }
+    },
 
 
 }
@@ -30,8 +37,8 @@ data() {
         </ul>
 
         <ul>
-            <li class="select"><router-link to="/private/myRoutines">My routines</router-link></li>
-            <li><router-link to="/private/makeRoutines">Make routines</router-link></li>
+            <li @click="changeSelection" :class="{ 'select' : selection === true }"><router-link to="/private/myRoutines">My routines</router-link></li>
+            <li @click="changeSelection" :class="{ 'select' : selection === false }"><router-link to="/private/makeRoutines">Make routines</router-link></li>
             <li>Admin Panel</li>
         </ul>
 
@@ -50,8 +57,8 @@ data() {
         </ul>
 
         <ul>
-            <li class="select"><router-link to="/private/myRoutines">My routines</router-link></li>
-            <li><router-link to="/private/makeRoutines">Make routines</router-link></li>
+            <li @click="changeSelection" :class="{ 'select' : selection === true }"><router-link to="/private/myRoutines">My routines</router-link></li>
+            <li @click="changeSelection" :class="{ 'select' : selection === false }"><router-link to="/private/makeRoutines">Make routines</router-link></li>
         </ul>
 
         <ul>
@@ -72,6 +79,8 @@ header{
     width: 100%;
     height: 60px;
 }
+
+
 
 .user_navbar{
     display: flex;
@@ -102,10 +111,6 @@ header{
     font-style: normal;
 }
 
-/* 
-.user_navbar ul li a:hover{
-    border-bottom: 1px solid rgba(64, 216, 119, 1);
-} */
 
 .select{
 

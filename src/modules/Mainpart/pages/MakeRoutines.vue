@@ -19,6 +19,7 @@ export default{
         lastPage:false,
         url:`http://localhost:8000/api/exercise?page=${this.page}`,
         category: "main",
+        userSearch:"",
     }
     },
 
@@ -38,6 +39,7 @@ export default{
                     }
                 });
                 const data = await respuesta.json();
+                console.log(data)
                 this.exercises = data.data;
 
                 if(data.next_page_url === null){
@@ -53,15 +55,66 @@ export default{
         },
 
 
+        async brazosCategory(){
+            this.page = 1
+            this.category = "brazos"
+            const brazosUrl = `http://localhost:8000/api/exercise-category/brazos?page=${this.page}`
+            await this.getExercises(brazosUrl)
+        },
+
+        async piernasCategory(){
+            this.page = 1
+            this.category = "piernas"
+            const piernasUrl = `http://localhost:8000/api/exercise-category/piernas?page=${this.page}`
+            await this.getExercises(piernasUrl)
+        },
+
+        async abdomenCategory(){
+            this.page = 1
+            this.category = "abdomen"
+            const abdomenUrl = `http://localhost:8000/api/exercise-category/abdomen?page=${this.page}`
+            await this.getExercises(abdomenUrl)
+        },
+
+        async pechoCategory(){
+            this.page = 1
+            this.category = "pecho"
+            const pechoUrl = `http://localhost:8000/api/exercise-category/pecho?page=${this.page}`
+            await this.getExercises(pechoUrl)
+        },
+
+        async espaldaCategory(){
+            this.page = 1
+            this.category = "espalda"
+            const espaldaUrl = `http://localhost:8000/api/exercise-category/espalda?page=${this.page}`
+            await this.getExercises(espaldaUrl)
+        },
+
+        async hombrosCategory(){
+            this.page = 1
+            this.category = "hombros"
+            const hombrosUrl = `http://localhost:8000/api/exercise-category/hombros?page=${this.page}`
+            await this.getExercises(hombrosUrl)
+        },
 
 
+        async allExercises(){
+            this.page = 1
+            this.category = "main"
+            const allUrl = `http://localhost:8000/api/exercise?page=${this.page}`
+            await this.getExercises(allUrl)
+        },
 
-
-
-
-
-
-
+        async searchExercises() {
+            this.page = 1;
+            this.category = "search";
+            if (this.userSearch.trim() !== "") {
+                const searchUrl = `http://localhost:8000/api/exercise-search/search?query=${this.userSearch}&page=${this.page}`
+                await this.getExercises(searchUrl)
+            } else {
+                this.exercises = []
+            }
+        }, 
 
         showExerciseInfoModal(exercise) {
             this.selectedExercise = exercise;
@@ -69,13 +122,6 @@ export default{
 
         closeExerciseInfoModal() {
             this.selectedExercise = null;
-        },
-
-        searchExercise() {
-            return this.exercises.filter(exercise => 
-                exercise.name.toLowerCase().includes(this.searchTerm.toLowerCase())
-            )
-
         },
 
         pushexercise(exercise){
@@ -89,7 +135,7 @@ export default{
                 await this.getExercises(nextPageUrl)
             } else if ( !this.lastPage && this.category === "search") {
                 this.page += 1;
-                const searchUrl = `http://localhost:8000/api/exercise/search?variable=${this.userSearch}&page=${this.page}`
+                const searchUrl = `http://localhost:8000/api/exercise-search/search?query=${this.userSearch}&page=${this.page}`
                 await this.getExercises(searchUrl)
             }
         },
@@ -101,7 +147,7 @@ export default{
                 await this.getExercises(previousPageUrl)
             } else if (this.page !== 1 && this.category === "search") {
                 this.page -= 1
-                const searchUrl = `http://localhost:8000/api/exercise/search?variable=${this.userSearch}&page=${this.page}`
+                const searchUrl = `http://localhost:8000/api/exercise-search/search?query=${this.userSearch}&page=${this.page}`
                 await this.getExercises(searchUrl);
             }
         },
@@ -129,17 +175,19 @@ export default{
             <p>MAKE YOUR NEW ROUTINE</p>
             
             <div class="contenedor_filters">
-                <input type="search" v-model="searchTerm" placeholder="Search...">
+                <label for="search" class="hidden_label">Search</label>
+                <input v-model="userSearch" @keyup.enter="searchExercises" id="search" name="search" type="search" placeholder="Search...">
                 <i class="fa-solid fa-filter fa-2xl" style="color: #000000;"></i>
             </div>
 
             <div class="prueba_filters">
-                <p><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Brazos</p>
-                <p><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Piernas</p>
-                <p><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Abdomen</p>
-                <p><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Pecho</p>
-                <p><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Espalda</p>
-                <p><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Hombros</p>
+                <p @click="brazosCategory" :class="{ 'category_selection': category === 'brazos' }" ><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Brazos</p>
+                <p @click="piernasCategory" :class="{ 'category_selection': category === 'piernas' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Piernas</p>
+                <p @click="abdomenCategory" :class="{ 'category_selection': category === 'abdomen' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Abdomen</p>
+                <p @click="pechoCategory" :class="{ 'category_selection': category === 'pecho' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Pecho</p>
+                <p @click="espaldaCategory" :class="{ 'category_selection': category === 'espalda' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Espalda</p>
+                <p @click="hombrosCategory" :class="{ 'category_selection': category === 'hombros' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Hombros</p>
+                <p @click="allExercises" :class="{ 'category_selection': category === 'main' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Todos</p>
             </div>
 
         </section>
@@ -191,6 +239,16 @@ export default{
 
 
 <style scoped>
+
+.hidden_label{
+    user-select: none;
+    color: transparent;
+}
+
+.category_selection{
+    color:rgba(64, 216, 119, 1);
+}
+
 
 .prueba_filters{
 
