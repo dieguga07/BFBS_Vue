@@ -84,7 +84,7 @@ export default{
 <style scoped>
 
 
-@import url('https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap');
+
 
 main{
     display: flex;
@@ -130,8 +130,8 @@ main{
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin-top: 40px;
-    gap:50px
+    margin-top: 17vh;
+    gap:80px
 }
 
 .register_form input{

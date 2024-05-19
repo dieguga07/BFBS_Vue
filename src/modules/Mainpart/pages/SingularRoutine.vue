@@ -126,6 +126,8 @@ export default{
 
 <style scoped>
 
+@import url('https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap');
+
 .container{
     display: flex;
     justify-content: center;

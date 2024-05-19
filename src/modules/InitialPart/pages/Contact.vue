@@ -119,8 +119,6 @@ main{
     font-style: normal;
     font-weight: 400;
     margin-top: 20px;
-   
-   
 }
 
 .contact_form{

@@ -74,6 +74,8 @@ export default{
 
 <style scoped>
 
+@import url('https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap');
+
 header{
     background-color: rgba(9, 9, 9, 1);
     width: 100%;
