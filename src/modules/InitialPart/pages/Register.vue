@@ -13,6 +13,7 @@ export default{
 
         return{
 
+          
         }
     },
 
@@ -85,7 +86,6 @@ export default{
 
 
 
-
 main{
     display: flex;
     flex-direction: row;
@@ -121,8 +121,7 @@ main{
     font-size: 40px;
     font-style: normal;
     font-weight: 400;
-    margin-top: 20px;
-   
+    margin-top: 100px;
    
 }
 
@@ -130,8 +129,8 @@ main{
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin-top: 17vh;
-    gap:80px
+    margin-top: 5vh;
+    gap: 7vh;
 }
 
 .register_form input{

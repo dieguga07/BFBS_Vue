@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import AuthenticationState from './auth-guard'
 
 const routes = [
 
@@ -38,38 +39,44 @@ const routes = [
         children: [
             {
                 path: 'makeRoutines',
-                // beforeEnter:(to,from,next) =>{
-                //     const authentication = AuthenticationState()
-                //     if(!authentication){
-                //         next('/public')
-                //     }else{
-                //         next()
-                //     }
-                // },
+                beforeEnter:(to,from,next) =>{
+                    AuthenticationState()
+                        .then(authentication => {
+                            if (!authentication) {
+                                next('/public');
+                            } else {
+                                next();
+                            }
+                        });
+                    },
                 component: () => import("../modules/Mainpart/pages/MakeRoutines.vue")
             },
             {
                 path: 'myRoutines',
-                // beforeEnter:(to,from,next) =>{
-                //     const authentication = AuthenticationState()
-                //     if(!authentication){
-                //         next('/public')
-                //     }else{
-                //         next()
-                //     }
-                // },
+                beforeEnter:(to,from,next) =>{
+                    AuthenticationState()
+                        .then(authentication => {
+                            if (!authentication) {
+                                next('/public');
+                            } else {
+                                next();
+                            }
+                        });
+                    },
                 component: () => import("../modules/Mainpart/pages/MyRoutines.vue")
             },
             {
                 path: 'addRoutines/:id',
-                // beforeEnter:(to,from,next) =>{
-                //     const authentication = AuthenticationState()
-                //     if(!authentication){
-                //         next('/public')
-                //     }else{
-                //         next()
-                //     }
-                // },
+                beforeEnter:(to,from,next) =>{
+                    AuthenticationState()
+                        .then(authentication => {
+                            if (!authentication) {
+                                next('/public');
+                            } else {
+                                next();
+                            }
+                        });
+                },
                 component: () => import("../modules/Mainpart/pages/SingularRoutine.vue")
               
             },
