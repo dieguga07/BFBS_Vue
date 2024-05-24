@@ -51,6 +51,12 @@ methods:{
                 userStore.setEmail(data.user.email);
                 userStore.setToken(data.token);
 
+                if(data.user.admin !== 1){
+                    userStore.setAdmin(false);
+                }else{
+                    userStore.setAdmin(true);
+                }
+
                 router.push("/private/myRoutines");
 
             } else {

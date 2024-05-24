@@ -1,21 +1,32 @@
 <script>
+import { UserContext } from '../../../stores/UserContext.js'; 
+
 export default{
 
 
-
     data() {
+        const usercontext = UserContext()
         return {
-
-            admin:false,
-            selection: true,
+            admin:usercontext.admin,
+            selection: "myRoutines",
         }
     },
 
     methods: {
 
-        changeSelection() {
-            this.selection = !this.selection;
-            console.log( this.selection );
+        changeSelection(selection) {
+            switch (selection) {
+                case 'myRoutines':
+                    this.selection = 'myRoutines';
+                    break;
+                case 'makeRoutines':
+                    this.selection = 'makeRoutines';
+                    break;
+                case 'adminPanel':
+                    this.selection = 'adminPanel';
+                    break;  
+            }
+            
         }
     },
 
@@ -37,9 +48,9 @@ export default{
         </ul>
 
         <ul>
-            <li @click="changeSelection" :class="{ 'select' : selection === true }"><router-link to="/private/myRoutines">My routines</router-link></li>
-            <li @click="changeSelection" :class="{ 'select' : selection === false }"><router-link to="/private/makeRoutines">Make routines</router-link></li>
-            <li>Admin Panel</li>
+            <li @click="changeSelection('myRoutines')" :class="{ 'select' : selection === 'myRoutines' }"><router-link to="/private/myRoutines">My routines</router-link></li>
+            <li @click="changeSelection('makeRoutines')" :class="{ 'select' : selection === 'makeRoutines' }"><router-link to="/private/makeRoutines">Make routines</router-link></li>
+            <li @click="changeSelection('adminPanel')" :class="{ 'select' : selection === 'adminPanel' }"><router-link to="/private/adminPanel">Admin Panel</router-link></li>
         </ul>
 
         <ul>

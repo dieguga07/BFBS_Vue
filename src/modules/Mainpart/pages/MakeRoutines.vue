@@ -4,13 +4,16 @@ import UserNavbar from '../components/UserNavbar.vue';
 import Footer from '../../InitialPart/components/Footer.vue';
 import '@fortawesome/fontawesome-free/css/all.css';
 import router from '../../../router/router';
+import { UserContext } from '../../../stores/UserContext';
 
 export default{
 
     components: { UserNavbar, Footer },
 
     data() {
+        const usercontext = UserContext()
     return {
+        token:usercontext.token,
         exercises:[],
         lastPage:false,
         selectedExercise: null,
@@ -31,11 +34,10 @@ export default{
 
         async getExercises(urlActive) {
             try {
-                const token = 
-                "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNWU4M2FkZWMxMGFlYjY5ZjBjMTA0MmUwM2VkYzM0MmVhMGU4ODliMDZiYmJlMTk1YmYxNzQwMzExYmExNDMzODAzZGFmZWQzODkwNDA0ZTUiLCJpYXQiOjE3MTU3MDQ4MDEuMDg0MDc3LCJuYmYiOjE3MTU3MDQ4MDEuMDg0MDgsImV4cCI6MTc0NzI0MDgwMC44NjU0OTIsInN1YiI6IjEiLCJzY29wZXMiOltdfQ.H4MsZKRnv3g_50jd2BgntiLu00K1hAzTxbFG22kyBCtF03eKiwpDqKaaL0DtJDRkoaJ4Z0b2eHqbjL_kYdieaMIsSp56kYE_0XQpuw-UoaKHLo_s2Sap-eTIgk_FN1k8V-3bSM8tF-N6BKTuA2ButIijwtDqCspcrkTRFy7UxGL21zO7mYPqBcYNOrwgHBQJzzwGhfP_7z0S-YGORbU3kd5kjO7TrLTiAgSZSsSXK3z08K2CaxQN526yYIxfS74P5RBY5Ji7h54xhKsCHU6GbN_ExfSIPLSP3LmJYJRRtog5ca5LKKaXrZYAcfJWyOTbKbzUgdx6MutbKvOEHxRyfO-Znv5bTBCIvfdR5feHBa95PIg-O7MlvAJRiOcgPkx259TnewC_3OabvgehhW2mL1X0PemyS2GvY7ghgvk9OApO8i9xC5YhFOAnLbUee-Fx0J5qpQdF5kIe-v3HO4QXixpuynlzwosHM-LUGPY0EV2ujFt7MYX_OctGuCpAPKUyaPHWbB5W9I4dYikBcBtQarh7Y-VexkFGDj3ZCQ8ErQzJWjDY1DWzxf1VIqAAEdIWR-YzLtw5SZoQvsA9gCWZACC1_QEdsPomHc-l36I2YPISZ3xNyDSwE7fKXXTf9nCGYs1bp3gdyJxSkvdQ4zOpE7-TfCO0t7IDZU0iXuV2uSM"
+                
                 const respuesta = await fetch(`${urlActive}`, {
                     headers: {
-                        'Authorization': `Bearer ${token}`
+                        'Authorization': `Bearer ${this.token}`
                     }
                 });
                 const data = await respuesta.json();
@@ -177,18 +179,24 @@ export default{
             <div class="contenedor_filters">
                 <label for="search" class="hidden_label">Search</label>
                 <input v-model="userSearch" @keyup.enter="searchExercises" id="search" name="search" type="search" placeholder="Search...">
-                <i class="fa-solid fa-filter fa-2xl" style="color: #000000;"></i>
+                
+                <div class="filter">
+                    <i class="fa-solid fa-filter fa-2xl" style="color: #000000;"></i>  
+                
+                    <div class="filter_btns oculto">
+                        <p @click="brazosCategory" :class="{ 'category_selection': category === 'brazos' }" ><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Brazos</p>
+                        <p @click="piernasCategory" :class="{ 'category_selection': category === 'piernas' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Piernas</p>
+                        <p @click="abdomenCategory" :class="{ 'category_selection': category === 'abdomen' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Abdomen</p>
+                        <p @click="pechoCategory" :class="{ 'category_selection': category === 'pecho' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Pecho</p>
+                        <p @click="espaldaCategory" :class="{ 'category_selection': category === 'espalda' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Espalda</p>
+                        <p @click="hombrosCategory" :class="{ 'category_selection': category === 'hombros' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Hombros</p>
+                        <p @click="allExercises" :class="{ 'category_selection': category === 'main' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Todos</p>
+                    </div>
+                </div> 
+
             </div>
 
-            <div class="prueba_filters">
-                <p @click="brazosCategory" :class="{ 'category_selection': category === 'brazos' }" ><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Brazos</p>
-                <p @click="piernasCategory" :class="{ 'category_selection': category === 'piernas' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Piernas</p>
-                <p @click="abdomenCategory" :class="{ 'category_selection': category === 'abdomen' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Abdomen</p>
-                <p @click="pechoCategory" :class="{ 'category_selection': category === 'pecho' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Pecho</p>
-                <p @click="espaldaCategory" :class="{ 'category_selection': category === 'espalda' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Espalda</p>
-                <p @click="hombrosCategory" :class="{ 'category_selection': category === 'hombros' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Hombros</p>
-                <p @click="allExercises" :class="{ 'category_selection': category === 'main' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Todos</p>
-            </div>
+  
 
         </section>
        
@@ -222,7 +230,6 @@ export default{
 
         </section>
 
-        
         <section class="paginate">
 
             <i @click="previousPage(category)" class="fa-solid fa-chevron-left fa-2xl" style="color: #000000;"> </i>
@@ -252,25 +259,40 @@ export default{
 }
 
 
-.prueba_filters{
+.oculto{
+    display: none;
+}
 
+.contenedor_filters{
     display: flex;
+}
+
+.filter{
+    position: relative;
+    display: flex;
+    justify-content: end;
+    align-items: center;
     flex-direction: row;
-    margin-bottom: 100px;
+}
 
-    p{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        font-size: 20px;
-        cursor: pointer;
-    }
+.filter:hover .oculto{
+    display: unset;
+   
+}
 
-    i{
-        margin-right: 5px;
-    }
+.filter_btns{
+    position: absolute;
+    display: none;
+    justify-content:start;
+    flex-direction: column;
+    border: 1px solid black;
+    background-color: white;
+    left: 59%;
+    top:36%;
+}
 
+.filter_btns p{
+    font-size: 10px;
 }
 
 .paginate{
@@ -427,6 +449,7 @@ section .contenedor_exercises{
     align-items: center;
     font-family: "Goldman", sans-serif;
     font-style: normal;
+    text-align: center;
 }
 
 .card p{

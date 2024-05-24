@@ -66,6 +66,20 @@ const routes = [
                 component: () => import("../modules/Mainpart/pages/MyRoutines.vue")
             },
             {
+                path: 'adminPanel',
+                beforeEnter:(to,from,next) =>{
+                    AuthenticationState()
+                        .then(authentication => {
+                            if (!authentication) {
+                                next('/public');
+                            } else {
+                                next();
+                            }
+                        });
+                    },
+                component: () => import("../modules/Mainpart/pages/AdminPanel.vue")
+            },
+            {
                 path: 'addRoutines/:id',
                 beforeEnter:(to,from,next) =>{
                     AuthenticationState()

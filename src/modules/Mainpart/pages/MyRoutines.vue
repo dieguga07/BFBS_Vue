@@ -1,12 +1,14 @@
 <script>
 import UserNavbar from '../components/UserNavbar.vue';
 import Footer from '../../InitialPart/components/Footer.vue';
-
+import { UserContext } from '../../../stores/UserContext';
 export default {
     components: { UserNavbar, Footer },
 
     data() {
+        const usercontext = UserContext()
         return {
+            token:usercontext.token,
             routines:[],
             storedRoutines:[],
             modalRemoveCurrentRoutine:false,
@@ -20,11 +22,10 @@ export default {
 
         },
 
+
+
         async addCurrentRoutine(){
             try {
-                const token = 
-                "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNWU4M2FkZWMxMGFlYjY5ZjBjMTA0MmUwM2VkYzM0MmVhMGU4ODliMDZiYmJlMTk1YmYxNzQwMzExYmExNDMzODAzZGFmZWQzODkwNDA0ZTUiLCJpYXQiOjE3MTU3MDQ4MDEuMDg0MDc3LCJuYmYiOjE3MTU3MDQ4MDEuMDg0MDgsImV4cCI6MTc0NzI0MDgwMC44NjU0OTIsInN1YiI6IjEiLCJzY29wZXMiOltdfQ.H4MsZKRnv3g_50jd2BgntiLu00K1hAzTxbFG22kyBCtF03eKiwpDqKaaL0DtJDRkoaJ4Z0b2eHqbjL_kYdieaMIsSp56kYE_0XQpuw-UoaKHLo_s2Sap-eTIgk_FN1k8V-3bSM8tF-N6BKTuA2ButIijwtDqCspcrkTRFy7UxGL21zO7mYPqBcYNOrwgHBQJzzwGhfP_7z0S-YGORbU3kd5kjO7TrLTiAgSZSsSXK3z08K2CaxQN526yYIxfS74P5RBY5Ji7h54xhKsCHU6GbN_ExfSIPLSP3LmJYJRRtog5ca5LKKaXrZYAcfJWyOTbKbzUgdx6MutbKvOEHxRyfO-Znv5bTBCIvfdR5feHBa95PIg-O7MlvAJRiOcgPkx259TnewC_3OabvgehhW2mL1X0PemyS2GvY7ghgvk9OApO8i9xC5YhFOAnLbUee-Fx0J5qpQdF5kIe-v3HO4QXixpuynlzwosHM-LUGPY0EV2ujFt7MYX_OctGuCpAPKUyaPHWbB5W9I4dYikBcBtQarh7Y-VexkFGDj3ZCQ8ErQzJWjDY1DWzxf1VIqAAEdIWR-YzLtw5SZoQvsA9gCWZACC1_QEdsPomHc-l36I2YPISZ3xNyDSwE7fKXXTf9nCGYs1bp3gdyJxSkvdQ4zOpE7-TfCO0t7IDZU0iXuV2uSM"
-
                 const routineData = {
                     routine_name: this.rutine_name,
                     exercises: this.storedRoutines.exercises.map(exercise => ({
@@ -39,7 +40,7 @@ export default {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
+                        'Authorization': `Bearer ${this.token}`
                     },
                     body: JSON.stringify(routineData)
                 });
@@ -47,6 +48,7 @@ export default {
                 if (response.ok) {
                     const responseData = await response.json();
                     console.log(responseData);
+                    console.log(responseData.routine)
                     localStorage.removeItem('currentRoutine');
                     this.storedRoutines.exercises = [];
                 } else {
