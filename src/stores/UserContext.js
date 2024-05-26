@@ -5,6 +5,7 @@ import {defineStore} from  'pinia'
 export const UserContext = defineStore('userState',{
 
     state: () =>({
+        id:0,
         name:"",
         email:"",
         token:"",

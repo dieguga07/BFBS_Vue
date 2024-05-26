@@ -12,18 +12,59 @@ export default {
             routines:[],
             storedRoutines:[],
             modalRemoveCurrentRoutine:false,
-            rutine_name:"Prueba de rutina"
+            rutine_name:"Prueba de rutina",
+            user_id:usercontext.id
         }
     },
     
     methods: {
 
-        getUserRoutines(){
+        async getUserRoutines(){
 
+            try{
+                const response = await fetch(`http://localhost:8000/api/get-user-routines/${this.user_id}`,{
+                        method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${this.token}`
+                            },
+                })
+                if (response.ok) {
+                        const responseData = await response.json();
+                        console.log(responseData)
+
+                    } else {
+                        throw new Error('Error al obtener las rutinas al usuario');
+                    }    
+            }catch (error){
+                console.error('Error al obtener las rutinas al usuario:', error);
+            }
         },
 
+        async addUserRoutines(routine_id){
 
+            try{
+                const response = await fetch(`http://localhost:8000/api/create-user-routine/${routine_id}`,{
+                    method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${this.token}`
+                        },
+                        body: JSON.stringify(this.user_id)
+                })
+                if (response.ok) {
+                        const responseData = await response.json();
+                        console.log(responseData)
 
+                    } else {
+                        throw new Error('Error al asignar rutina al usuario');
+                    }
+            }catch (error){
+                console.error('Error al asignar la rutina al usuario:', error);
+            }
+        },
+
+         
         async addCurrentRoutine(){
             try {
                 const routineData = {
@@ -47,9 +88,12 @@ export default {
 
                 if (response.ok) {
                     const responseData = await response.json();
-                    console.log(responseData);
+                    console.log(responseData)
                     console.log(responseData.routine)
-                    localStorage.removeItem('currentRoutine');
+
+                    this.addUserRoutines(responseData.routine)
+
+                    localStorage.removeItem('currentRoutine')
                     this.storedRoutines.exercises = [];
                 } else {
                     throw new Error('Error al agregar la rutina');

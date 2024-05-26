@@ -25,92 +25,91 @@ export default{
         }
     },
 
-methods:{
+    methods:{
 
 
-    goRegister(){
-        router.push("/public/register")
-    },
+        goRegister(){
+            router.push("/public/register")
+        },
 
-    async login() {
-        try {
-            const userStore = UserContext();
-            const response = await fetch('http://localhost:8000/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email: this.email, password: this.password }),
-            });
+        async login() {
+            try {
+                const userStore = UserContext();
+                const response = await fetch('http://localhost:8000/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email: this.email, password: this.password }),
+                });
 
-            if (response.ok) {
+                if (response.ok) {
 
-                const data = await response.json();
+                    const data = await response.json();
 
-                userStore.setName(data.user.name);
-                userStore.setEmail(data.user.email);
-                userStore.setToken(data.token);
+                    userStore.setName(data.user.name);
+                    userStore.setEmail(data.user.email);
+                    userStore.setToken(data.token);
 
-                if(data.user.admin !== 1){
-                    userStore.setAdmin(false);
-                }else{
-                    userStore.setAdmin(true);
+                    if(data.user.admin !== 1){
+                        userStore.setAdmin(false);
+                    }else{
+                        userStore.setAdmin(true);
+                    }
+
+                    router.push("/private/myRoutines");
+
+                } else {
+                    throw new Error('Error en el login');
                 }
-
-                router.push("/private/myRoutines");
-
-            } else {
-                throw new Error('Error en el login');
+            } catch (error) {
+                this.responseFail = "Credenciales invalidas";
+                setTimeout(() => {
+                    this.responseFail = "";
+                }, 10000);
             }
-        } catch (error) {
-            this.responseFail = "Credenciales invalidas";
-            setTimeout(() => {
-                this.responseFail = "";
-            }, 10000);
-        }
-    },
+        },
 
+        sendForm(e){
+            e.preventDefault()
 
-    sendForm(e){
-        e.preventDefault()
+            this.checkPassword()
 
-        this.checkPassword()
+            this.checkEmail()
 
-        this.checkEmail()
-
-        if(this.validEmail && this.validPassword){
-            this.login()
-        }  
-          
-       },
-
-       checkEmail(){
-        if(this.email.trim() === "" ){
-          this.emailMessage = "This field cannot be empty."
-          return this.validEmail = false
-        }else if(this.email.length < 4 ){
-          this.emailMessage ="The username must be composed of 4 letters or more."
-          return this.validEmail = false
-        }
-        this.emailMessage = "✔"
-        this.validEmail = true
-       },
-       
-       checkPassword(){
-        if(this.password.trim() === "" ){
-          this.passwordMessage = "This field cannot be empty."
-          return this.validPassword = false
-        }
-        if(this.password.length < 3) {
-            this.passwordMessage = "The password must be composed of 3 letters or more."
-            return this.validPassword = false
+            if(this.validEmail && this.validPassword){
+                this.login()
+            }  
             
-        }
-        this.passwordMessage = "✔"
-        this.validPassword = true
-       }
+        },
 
-},
+        checkEmail(){
+            if(this.email.trim() === "" ){
+            this.emailMessage = "This field cannot be empty."
+            return this.validEmail = false
+            }else if(this.email.length < 4 ){
+            this.emailMessage ="The username must be composed of 4 letters or more."
+            return this.validEmail = false
+            }
+            this.emailMessage = "✔"
+            this.validEmail = true
+        },
+        
+        checkPassword(){
+            if(this.password.trim() === "" ){
+            this.passwordMessage = "This field cannot be empty."
+            return this.validPassword = false
+            }
+            if(this.password.length < 3) {
+                this.passwordMessage = "The password must be composed of 3 letters or more."
+                return this.validPassword = false
+                
+            }
+            this.passwordMessage = "✔"
+            this.validPassword = true
+        }
+
+    },
 
 
 watch:{
