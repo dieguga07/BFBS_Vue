@@ -7,6 +7,7 @@ export default{
     data() {
         const usercontext = UserContext()
         return {
+            username:usercontext.name,
             admin:usercontext.admin,
             selection: "myRoutines",
         }
@@ -44,7 +45,7 @@ export default{
 
         <ul>
             <li><i class="fa-solid fa-user fa-2xl"></i></li>
-            <li class="name">UserName</li>
+            <li class="name">{{username}}</li>
         </ul>
 
         <ul>

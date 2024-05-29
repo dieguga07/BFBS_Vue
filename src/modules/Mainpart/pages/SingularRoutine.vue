@@ -73,6 +73,7 @@ export default{
             this.currentRutine.exercises = currentRoutine;
 
             router.push("/private/myRoutines");
+            
             console.log(exerciseData);
         }
 

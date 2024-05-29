@@ -12,7 +12,8 @@ export default {
             routines:[],
             storedRoutines:[],
             modalRemoveCurrentRoutine:false,
-            rutine_name:"Prueba de rutina",
+            modalAddCurrentRoutine:false,
+            rutine_name:"Nombre de la rutina",
             user_id:usercontext.id
         }
     },
@@ -32,6 +33,7 @@ export default {
                 if (response.ok) {
                         const responseData = await response.json();
                         console.log(responseData)
+                        this.routines = responseData
 
                     } else {
                         throw new Error('Error al obtener las rutinas al usuario');
@@ -43,18 +45,21 @@ export default {
 
         async addUserRoutines(routine_id){
 
+            const userId = parseInt(this.user_id)
+
             try{
-                const response = await fetch(`http://localhost:8000/api/create-user-routine/${routine_id}`,{
+                const response = await fetch(`http://localhost:8000/api/create-user-routine/${userId}/${routine_id}`,{
                     method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': `Bearer ${this.token}`
                         },
-                        body: JSON.stringify(this.user_id)
+
                 })
                 if (response.ok) {
                         const responseData = await response.json();
                         console.log(responseData)
+                        this.getUserRoutines()
 
                     } else {
                         throw new Error('Error al asignar rutina al usuario');
@@ -88,13 +93,14 @@ export default {
 
                 if (response.ok) {
                     const responseData = await response.json();
-                    console.log(responseData)
-                    console.log(responseData.routine)
+                 
+                    const new_routine_id = parseInt(responseData.routine)
 
-                    this.addUserRoutines(responseData.routine)
+                    this.addUserRoutines(new_routine_id)
 
                     localStorage.removeItem('currentRoutine')
                     this.storedRoutines.exercises = [];
+                    this.closeAddCurrentRutineModal()
                 } else {
                     throw new Error('Error al agregar la rutina');
                 }
@@ -112,6 +118,15 @@ export default {
             this.modalRemoveCurrentRoutine = true
         },
 
+        openAddCurrentRutineModal(){
+            this.modalAddCurrentRoutine = true
+        },
+
+        closeAddCurrentRutineModal(){
+            this.modalAddCurrentRoutine = false
+        },
+
+
         removeAllCurrentRutine(){
            
            localStorage.removeItem('currentRoutine')
@@ -123,6 +138,8 @@ export default {
     },
 
     mounted() {
+
+        this.getUserRoutines()
 
         const storedData = localStorage.getItem('currentRoutine')
 
@@ -166,6 +183,24 @@ export default {
 
             </div>
 
+            <!-- Add Current Routine Modal -->
+
+            <div class="modal" v-if="modalAddCurrentRoutine">
+
+                <div class="modal__content_2">
+                <a class="close_modal" @click="closeAddCurrentRutineModal"> <i class="fa-solid fa-circle-xmark fa-2xl" style="color: #000000;"></i> </a>
+
+                    <p>Escriba el nombre de la rutina que va a crear:</p>
+                    <input type="text" v-model="rutine_name">
+
+                    <div class="modal__btn">
+                        <button @click="addCurrentRoutine" class="yes_btn"> Guardar </button>
+                    </div>
+                
+                </div>
+
+            </div>
+
             <p id="your_routines">YOUR ROUTINES</p>
   
             <article class="routines_container" >
@@ -176,18 +211,18 @@ export default {
 
 
            <div v-if="routines.length !== 0" >
-                <section class="routine">
+                <section class="routine" v-for="routine in routines" :key="routine.routine_id">
 
-                    <p id="title">Lunes</p>
+                    <p id="title">{{ routine.routine_name }}</p>
 
                     <div class="routine_content">
 
-                            <div class="routine__exercise">
+                            <div class="routine__exercise" v-for="exercise in routine.exercises" :key="exercise.id">
 
-                                <p>exercise</p>
-                                <img src="" alt="">
-                                <p>repetitions</p>
-                                <p>series</p>
+                                <p>{{ exercise.name }}</p>
+                                <img :src="exercise.image" :alt="exercise.name">
+                                <p>{{ exercise.repetitions }} repetitions</p>
+                                <p>{{ exercise.series }} series</p>
 
                             </div>
 
@@ -219,6 +254,8 @@ export default {
 
                             <div class="routine__exercise" v-for="exercise in storedRoutines.exercises" :key="index">
 
+                                <i class="delete_exercise">x</i>
+
                                 <p>{{ exercise.name}}</p>
                                 <img :src="exercise.image" :alt="exercise.name">
                                 <p>{{ exercise.serie}} series</p>
@@ -230,7 +267,7 @@ export default {
 
                     <div class="routine__btn2">
 
-                        <button id="add" @click="addCurrentRoutine"  ><i class="fa-solid fa-circle-plus fa-flip-horizontal fa-2xl" style="color: #000000;"></i></button>
+                        <button id="add" @click="openAddCurrentRutineModal"  ><i class="fa-solid fa-circle-plus fa-flip-horizontal fa-2xl" style="color: #000000;"></i></button>
                         <button id="remove" @click="openAllCurrentRutineModal"> <i class="fa-solid fa-trash fa-2xl position_close" style="color: #000000;"></i></button>
                     </div>
 
@@ -263,6 +300,11 @@ export default {
     width: 100%;
     height: 100%;
     z-index: 2;
+}
+
+.delete_exercise{
+    position: absolute;
+    top: 0px;
 }
 
 
@@ -322,6 +364,45 @@ export default {
 }
 
 
+.modal__content_2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    width: 70vh;
+    height: 30vh;
+    border-radius: 25px;
+    gap: 20px;
+    font-family: "Goldman", sans-serif;
+    font-style: normal;
+}
+
+.modal__content_2 i{
+    padding-top: 5px;
+    padding-left: 10px;
+}
+
+.modal__content_2 a{
+    margin-top: 20px;
+    display: flex;
+    align-self: start;
+   
+}
+
+.modal__content_2 p{
+    width: 80%;
+    font-family: "Goldman", sans-serif;
+    font-style: normal;
+    text-align: justify;
+    text-align: center;
+}
+
+.modal__content_2 input{
+    width: 50%;
+    height: 40px;
+}
+
+
 #add{
     background-color: rgba(64, 216, 119, 1);
     border: 1px solid black;
@@ -347,6 +428,7 @@ export default {
     width: 100%;
     min-height: 50vh;
     padding-left: 5%;
+    margin-bottom: 125px;
 }
 
 .no_routines{
@@ -404,11 +486,12 @@ export default {
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 10px;
-    widows: 200px;
+    width: 200px;
     align-items: center;
     gap: 5px;
     font-family: "Goldman", sans-serif;
     font-style: normal;
+    text-align: center;
 }
 
 
@@ -434,6 +517,7 @@ export default {
     justify-content: flex-end;
     height: 100%;
     right: 21px;
+    padding-top: 2px;
   
 }
   
