@@ -30,7 +30,7 @@ export default{
    methods: {
 
 
-        openDeleteExerciseModal(){
+        openDeleteExerciseModal(exercise_id){
             this. DeleteExerciseModal= true
         },
 
@@ -38,7 +38,7 @@ export default{
             this. DeleteExerciseModal= false
         },
 
-         openDeleteUserModal(){
+         openDeleteUserModal(user_id){
             this. DeleteUserModal= true
         },
 
@@ -116,6 +116,45 @@ export default{
 
        <section>
 
+
+           <!-- DeleteUser Modal -->
+
+             <div class="modal" v-if="DeleteUserModal">
+
+                <div class="modal__content">
+                <a class="close_modal" @click="closeDeleteUserModal"> <i class="fa-solid fa-circle-xmark fa-2xl" style="color: #000000;"></i> </a>
+
+                    <p>¿Estás seguro de que quieres borrar este usuario?</p>
+
+                    <div class="modal__btn">
+                        <button @click="" class="yes_btn"> Si </button>
+                        <button @click="closeDeleteUserModal" class="no_btn" > No </button>
+                    </div>
+                
+                </div>
+
+            </div>
+
+
+            
+           <!-- DeleteExercise Modal -->
+
+             <div class="modal" v-if="DeleteExerciseModal">
+
+                <div class="modal__content">
+                <a class="close_modal" @click="closeDeleteExerciseModal"> <i class="fa-solid fa-circle-xmark fa-2xl" style="color: #000000;"></i> </a>
+
+                    <p>¿Estás seguro de que quieres borrar este ejercicio?</p>
+
+                    <div class="modal__btn">
+                        <button @click="" class="yes_btn"> Si </button>
+                        <button @click="closeDeleteExerciseModal" class="no_btn" > No </button>
+                    </div>
+                
+                </div>
+
+            </div>
+
         <div class="section_btns">
 
             <button @click="user_sectionState" :class="{ 'selected_section': user_section }">Usuarios</button>
@@ -187,7 +226,7 @@ export default{
                             <tr>
                                 <th>Id</th>
                                 <th>Nombre</th>
-                                <th>Url imagen</th>
+                                <th>Imagen</th>
                                 <th>Description</th>
                                 <th>Editar</th>
                                 <th>Eliminar</th>
@@ -195,7 +234,7 @@ export default{
                             <tr v-for="exercise in exercises">
                                 <td>{{exercise.id}}</td>
                                 <td>{{exercise.name}}</td>
-                                <td>{{exercise.image}}</td>
+                                <td><img :src="exercise.image" :alt="exercise.image"></td>
                                 <td>{{exercise.description}}</td>
                                 <td><i class="fa-solid fa-pen fa-lg" style="color: #ffd642;"></i></td>
                                 <td><i @click="openDeleteExerciseModal(exercise.id)" class="fa-solid fa-circle-xmark fa-lg" style="color: #b30c00;"></i></td>
@@ -216,12 +255,76 @@ export default{
 
 <style scoped>
 
-
-.table {
+.modal{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    border-collapse: collapse;
+    height: 100%;
+    z-index: 2;
+}
+
+.modal__content a{
+    margin-top: 20px;
+    display: flex;
+    align-self: start;
+   
+}
+
+.modal__content i{
+    padding-top: 5px;
+    padding-left: 10px;
+}
+
+.modal__btn  {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.modal__btn button {
+    width: 20vh;
+    height: 5vh;
+    border: 1px solid black;
+}
+
+.yes_btn{
+    background-color: rgba(64, 216, 119, 1);
+}
+
+
+.no_btn{
+    background-color: rgba(241, 90, 99, 1);
+}
+
+.modal__content p{
+    width: 80%;
+    font-family: "Goldman", sans-serif;
+    font-style: normal;
+    text-align: justify;
     text-align: center;
 }
+
+.modal__content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    width: 70vh;
+    height: 30vh;
+    border-radius: 25px;
+    gap: 40px;
+    font-family: "Goldman", sans-serif;
+    font-style: normal;
+}
+
+
 
 .table-container {
     width: 100%;
@@ -230,15 +333,50 @@ export default{
     margin-top: 20px;
     margin-bottom:50px;
 }
+.table-container {
+    width: 100%;
+    max-height: 400px; 
+    overflow: auto; 
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
 
 .table th,
 .table td {
     border: 1px solid black;
     padding: 8px;
+    max-width: 150px;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table td img {
+width: 50px;
+height: 50px;
+}
+
+.table td {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table td:hover {
+    overflow: visible;
+    white-space: normal;
 }
 
 .add_button{
-    background-color:rgba(64, 216, 119, 1) ;
+    background-color:rgba(64, 216, 119, 1);
+    height: 45px;
+    width: 120px;
 }
 
 

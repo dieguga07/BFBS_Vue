@@ -27,7 +27,7 @@ export default{
         </li>
 
         <li class="container_nav_links__register">
-            <router-link to="/public/register" class="nav-link " id="login">REGISTER</router-link>
+            <router-link to="/public/register" class="nav-link " id="login">REGISTRO</router-link>
         </li>
     </ul>
 
@@ -40,7 +40,7 @@ export default{
 
    <section class="container_start">
 
-    <router-link to="/public/register" class="nav-link " id="login">GET STARTED</router-link>
+    <router-link to="/public/register" class="nav-link " id="login">¡EMPIEZA YA!</router-link>
 
    </section>
    

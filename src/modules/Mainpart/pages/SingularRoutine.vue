@@ -73,7 +73,7 @@ export default{
             this.currentRutine.exercises = currentRoutine;
 
             router.push("/private/myRoutines");
-            
+
             console.log(exerciseData);
         }
 
@@ -108,7 +108,7 @@ export default{
 
             <input type="text" placeholder="Repetitions"  v-model="repetitions">
 
-            <button @click="addToRoutine(exercise)">ADD EXERCISE</button>
+            <button @click="addToRoutine(exercise)">AÑADIR EJERCICIO</button>
 
         </form>
 
@@ -119,7 +119,6 @@ export default{
     <Footer></Footer>
    
 </main>
-
 
 
 </template>

@@ -174,10 +174,10 @@ export default{
 
         <section class="contenedor">
 
-            <p>MAKE YOUR NEW ROUTINE</p>
+            <p>CREA NUEVAS RUTINAS</p>
             
             <div class="contenedor_filters">
-                <label for="search" class="hidden_label">Search</label>
+                <label for="search" class="hidden_label">Buscar</label>
                 <input v-model="userSearch" @keyup.enter="searchExercises" id="search" name="search" type="search" placeholder="Search...">
                 
                 <div class="filter">

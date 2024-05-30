@@ -172,7 +172,7 @@ export default {
                 <div class="modal__content">
                 <a class="close_modal" @click="closeAllCurrentRutineModal"> <i class="fa-solid fa-circle-xmark fa-2xl" style="color: #000000;"></i> </a>
 
-                    <p>Estas seguro de que quieres borrar la rutina actual entera</p>
+                    <p>¿Estás seguro de que quieres borrar la rutina actual entera?</p>
 
                     <div class="modal__btn">
                         <button @click="removeAllCurrentRutine" class="yes_btn"> Si </button>
@@ -201,7 +201,7 @@ export default {
 
             </div>
 
-            <p id="your_routines">YOUR ROUTINES</p>
+            <p id="your_routines">TUS RUTINAS</p>
   
             <article class="routines_container" >
 
@@ -221,7 +221,7 @@ export default {
 
                                 <p>{{ exercise.name }}</p>
                                 <img :src="exercise.image" :alt="exercise.name">
-                                <p>{{ exercise.repetitions }} repetitions</p>
+                                <p>{{ exercise.repetitions }} repeticiones</p>
                                 <p>{{ exercise.series }} series</p>
 
                             </div>
@@ -244,7 +244,7 @@ export default {
   
         <article class="current_routine_container">
 
-            <p id="create_title">YOUR CURRENT CREATION</p>
+            <p id="create_title">TU RUTINA ACTUAL</p>
 
             <section class="routine">
 
@@ -259,7 +259,7 @@ export default {
                                 <p>{{ exercise.name}}</p>
                                 <img :src="exercise.image" :alt="exercise.name">
                                 <p>{{ exercise.serie}} series</p>
-                                <p>{{ exercise.repetition}} repetitions</p>
+                                <p>{{ exercise.repetition}} repeticiones</p>
 
                             </div>
 

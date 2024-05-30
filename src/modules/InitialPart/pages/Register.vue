@@ -48,11 +48,11 @@ export default{
 
 <section class="register_imgpart">
 
-    <p class="register_imgpart__title">CHANGE STARTS NOW!</p>
+    <p class="register_imgpart__title">¡EL CAMBIO EMPIEZA YA!</p>
 
     <div class="register_imgpart__loginPart">
 
-        <p>YOU HAVE ACCOUNT ?</p>
+        <p>¿NO TIENES CUENTA AÚN?</p>
         <button @click="goLogin">LOGIN</button>
 
     </div>
@@ -63,7 +63,7 @@ export default{
 
 <section class="register">
 
-    <p>REGISTER</p>
+    <p>REGISTRO</p>
 
     <form class="register_form">
 
@@ -71,7 +71,7 @@ export default{
         <input type="email" placeholder="Email">
         <input type="password" placeholder="Passwoord">
 
-        <button @click="register">GET STARTED</button>
+        <button @click="register">EMPIEZA YA</button>
 
     </form>
 

@@ -49,9 +49,9 @@ export default{
         </ul>
 
         <ul>
-            <li @click="changeSelection('myRoutines')" :class="{ 'select' : selection === 'myRoutines' }"><router-link to="/private/myRoutines">My routines</router-link></li>
-            <li @click="changeSelection('makeRoutines')" :class="{ 'select' : selection === 'makeRoutines' }"><router-link to="/private/makeRoutines">Make routines</router-link></li>
-            <li @click="changeSelection('adminPanel')" :class="{ 'select' : selection === 'adminPanel' }"><router-link to="/private/adminPanel">Admin Panel</router-link></li>
+            <li @click="changeSelection('myRoutines')" :class="{ 'select' : selection === 'myRoutines' }"><router-link to="/private/myRoutines">Mis rutinas</router-link></li>
+            <li @click="changeSelection('makeRoutines')" :class="{ 'select' : selection === 'makeRoutines' }"><router-link to="/private/makeRoutines">Crear rutinas</router-link></li>
+            <li @click="changeSelection('adminPanel')" :class="{ 'select' : selection === 'adminPanel' }"><router-link to="/private/adminPanel">Panel Administrador</router-link></li>
         </ul>
 
         <ul>
@@ -65,12 +65,12 @@ export default{
 
         <ul>
             <li><i class="fa-solid fa-user fa-2xl"></i></li>
-            <li class="name">UserName</li>
+            <li class="name">{{username}}</li>
         </ul>
 
         <ul>
-            <li @click="changeSelection" :class="{ 'select' : selection === true }"><router-link to="/private/myRoutines">My routines</router-link></li>
-            <li @click="changeSelection" :class="{ 'select' : selection === false }"><router-link to="/private/makeRoutines">Make routines</router-link></li>
+            <li @click="changeSelection" :class="{ 'select' : selection === true }"><router-link to="/private/myRoutines">Mis rutinas</router-link></li>
+            <li @click="changeSelection" :class="{ 'select' : selection === false }"><router-link to="/private/makeRoutines">Hacer rutinas</router-link></li>
         </ul>
 
         <ul>
@@ -93,8 +93,6 @@ header{
     width: 100%;
     height: 60px;
 }
-
-
 
 .user_navbar{
     display: flex;

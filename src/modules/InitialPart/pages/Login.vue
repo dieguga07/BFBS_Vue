@@ -134,12 +134,12 @@ watch:{
 
 <section class="login_imgpart">
 
-    <p class="login_imgpart__title">WELCOME BACK!</p>
+    <p class="login_imgpart__title">¡HOLA DE NUEVO!</p>
 
     <div class="login_imgpart__registerPart">
 
-        <p>YOU DONT HAVE ACCOUNT ?</p>
-        <button @click="goRegister">SIGN UP</button>
+        <p>¿NO TIENES CUENTA TODAVÍA?</p>
+        <button @click="goRegister">REGISTRATE</button>
 
     </div>
 
@@ -163,7 +163,7 @@ watch:{
         <input v-model="password" type="password" placeholder="Password">
         <span  :class=" validPassword ? 'accept-message' : 'error-message' " >{{ passwordMessage }}</span>
         
-        <button @click="sendForm">ENTER</button>
+        <button @click="sendForm">ENTRA</button>
 
     </form>
 
