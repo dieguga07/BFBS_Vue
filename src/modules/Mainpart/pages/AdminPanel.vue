@@ -98,7 +98,53 @@ export default{
                 return null;
             }
 
-        }
+        },
+
+        async createUser(){
+            
+            try {
+                const response = await fetch('http://localhost:8000/api/createUser', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${this.token}`
+                    }
+                    
+                });
+                if (!response.ok) {
+                    throw new Error('Error al obtener los usuarios');
+                }
+                const data = await response.json();
+            
+                console.log(this.users);
+            } catch (error) {
+                console.error('Error:', error);
+                return null;
+            }
+
+        },
+
+        async createUser(){
+            
+            try {
+                const response = await fetch('http://localhost:8000/api/createExercise', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${this.token}`
+                    }
+                    
+                });
+                if (!response.ok) {
+                    throw new Error('Error al obtener los usuarios');
+                }
+                const data = await response.json();
+            
+                console.log(this.users);
+            } catch (error) {
+                console.error('Error:', error);
+                return null;
+            }
+
+        },
 
    }
 

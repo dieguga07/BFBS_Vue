@@ -20,6 +20,8 @@ export default {
     
     methods: {
 
+        
+
         async getUserRoutines(){
 
             try{
@@ -133,7 +135,15 @@ export default {
            this.storedRoutines = []
            this.closeAllCurrentRutineModal()
            console.log(this.storedRoutines);
-       }
+       },
+
+        removeExercise(exerciseId) {
+            const index = this.storedRoutines.exercises.findIndex(exercise => exercise.id === exerciseId);
+            if (index !== -1) {
+                this.storedRoutines.exercises.splice(index, 1);
+                localStorage.setItem('currentRoutine', JSON.stringify(this.storedRoutines));
+            }
+        }
     
     },
 
@@ -220,7 +230,7 @@ export default {
                             <div class="routine__exercise" v-for="exercise in routine.exercises" :key="exercise.id">
 
                                 <p>{{ exercise.name }}</p>
-                                <img :src="exercise.image" :alt="exercise.name">
+                                <img :src="exercise.image ? exercise.image  : 'https://web-back.perfectgym.com/sites/default/files/styles/460x/public/equipment%20%286%29.jpg?itok=bC0T32-K' " :alt="exercise.name">
                                 <p>{{ exercise.repetitions }} repeticiones</p>
                                 <p>{{ exercise.series }} series</p>
 
@@ -252,12 +262,12 @@ export default {
 
                     <div class="routine_content">
 
-                            <div class="routine__exercise" v-for="exercise in storedRoutines.exercises" :key="index">
+                            <div class="routine__exercise" v-for="exercise in storedRoutines.exercises" :key="exercise.id">
 
-                                <i class="delete_exercise">x</i>
+                                <p @click="removeExercise(exercise.id)" class="delete_exercise">x</p>
 
                                 <p>{{ exercise.name}}</p>
-                                <img :src="exercise.image" :alt="exercise.name">
+                                <img :src="exercise.image ? exercise.image  : 'https://web-back.perfectgym.com/sites/default/files/styles/460x/public/equipment%20%286%29.jpg?itok=bC0T32-K' " :alt="exercise.name">
                                 <p>{{ exercise.serie}} series</p>
                                 <p>{{ exercise.repetition}} repeticiones</p>
 
@@ -304,7 +314,18 @@ export default {
 
 .delete_exercise{
     position: absolute;
-    top: 0px;
+    top: 15px;
+    left: 165px;
+    display: flex;
+    border-radius: 100%;
+    width: 20px;
+    height: 22px;
+    justify-content: center;
+    color: rgba(9, 9, 9, 1);
+    box-shadow: 2px 1px 14px 3px rgb(52 51 51 / 54%);
+    cursor: pointer;
+    background-color: white;
+    z-index: 2;
 }
 
 
@@ -492,6 +513,7 @@ export default {
     font-family: "Goldman", sans-serif;
     font-style: normal;
     text-align: center;
+    position: relative;
 }
 
 

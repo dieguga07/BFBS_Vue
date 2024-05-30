@@ -23,6 +23,7 @@ export default{
         url:`http://localhost:8000/api/exercise?page=${this.page}`,
         category: "main",
         userSearch:"",
+        defaultImage: "../../../assets/images/pesas.jpg",
     }
     },
 
@@ -174,7 +175,7 @@ export default{
 
         <section class="contenedor">
 
-            <p>CREA NUEVAS RUTINAS</p>
+            <p class="contenedor_title">CREA NUEVAS RUTINAS</p>
             
             <div class="contenedor_filters">
                 <label for="search" class="hidden_label">Buscar</label>
@@ -184,13 +185,13 @@ export default{
                     <i class="fa-solid fa-filter fa-2xl" style="color: #000000;"></i>  
                 
                     <div class="filter_btns oculto">
-                        <p @click="brazosCategory" :class="{ 'category_selection': category === 'brazos' }" ><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Brazos</p>
-                        <p @click="piernasCategory" :class="{ 'category_selection': category === 'piernas' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Piernas</p>
-                        <p @click="abdomenCategory" :class="{ 'category_selection': category === 'abdomen' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Abdomen</p>
-                        <p @click="pechoCategory" :class="{ 'category_selection': category === 'pecho' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Pecho</p>
-                        <p @click="espaldaCategory" :class="{ 'category_selection': category === 'espalda' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Espalda</p>
-                        <p @click="hombrosCategory" :class="{ 'category_selection': category === 'hombros' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Hombros</p>
-                        <p @click="allExercises" :class="{ 'category_selection': category === 'main' }"><i class="fa-solid fa-dumbbell fa-2xl" style="color: #000000;"></i> Todos</p>
+                        <p @click="brazosCategory" :class="{ 'category_selection': category === 'brazos' }"> Brazos</p>
+                        <p @click="piernasCategory" :class="{ 'category_selection': category === 'piernas' }"> Piernas</p>
+                        <p @click="abdomenCategory" :class="{ 'category_selection': category === 'abdomen' }"> Abdomen</p>
+                        <p @click="pechoCategory" :class="{ 'category_selection': category === 'pecho' }"> Pecho</p>
+                        <p @click="espaldaCategory" :class="{ 'category_selection': category === 'espalda' }"> Espalda</p>
+                        <p @click="hombrosCategory" :class="{ 'category_selection': category === 'hombros' }"> Hombros</p>
+                        <p @click="allExercises" :class="{ 'category_selection': category === 'main' }"> Todos</p>
                     </div>
                 </div> 
 
@@ -208,7 +209,7 @@ export default{
                 <div class="modal__content">
                 <a class="close_modal" @click="closeExerciseInfoModal"> <i class="fa-solid fa-circle-xmark fa-2xl" style="color: #000000;"></i> </a>
                     <h2>{{ selectedExercise.name }}</h2>
-                    <img :src="selectedExercise.image" :alt="selectedExercise.name">
+                    <img :src="selectedExercise.image ? selectedExercise.image  : 'https://web-back.perfectgym.com/sites/default/files/styles/460x/public/equipment%20%286%29.jpg?itok=bC0T32-K' " :alt="selectedExercise.name">
                     <p>{{ selectedExercise.description }}</p>
                 </div>
 
@@ -217,7 +218,7 @@ export default{
             <div class="card" v-for="exercise in exercises" :key="exercise.id">
 
                 <p>{{exercise.name}}</p>
-                <img :src="exercise.image" :alt="exercise.name">
+                <img :src="exercise.image ? exercise.image  : 'https://web-back.perfectgym.com/sites/default/files/styles/460x/public/equipment%20%286%29.jpg?itok=bC0T32-K' " :alt="exercise.name">
 
                 <div class="card__btns">
 
@@ -287,12 +288,14 @@ export default{
     flex-direction: column;
     border: 1px solid black;
     background-color: white;
-    left: 59%;
-    top:36%;
+    left: 50%;
+    top: 50%;
 }
 
 .filter_btns p{
-    font-size: 10px;
+    font-size: 20px;
+    margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .paginate{
@@ -333,11 +336,13 @@ export default{
     font-style: normal;
 }
 
-.contenedor p{
-
-    font-size: 4vw;
+.contenedor{
     font-family: "Goldman", sans-serif;
     font-style: normal;
+}
+
+.contenedor_title{
+    font-size: 4vw;
 }
 
 .contenedor input{
@@ -370,6 +375,7 @@ export default{
     width: 100%;
     height: 100%;
     z-index: 2;
+
 }
 
 .fa-2xl {
@@ -396,6 +402,7 @@ export default{
     font-family: "Goldman", sans-serif;
     font-style: normal;
     text-align: justify;
+
 }
 
 .modal__content{
@@ -410,6 +417,7 @@ export default{
     gap: 40px;
     font-family: "Goldman", sans-serif;
     font-style: normal;
+    text-align: center;
 }
 
 .modal__content img{
@@ -470,7 +478,7 @@ section .contenedor_exercises{
     gap:10px;
     background-color: black;
     height: 50px;
-    width: 100%;
+    width: 200px;
     color: antiquewhite;
 }
 
