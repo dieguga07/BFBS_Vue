@@ -74,7 +74,7 @@ export default{
 
             router.push("/private/myRoutines");
 
-            console.log(exerciseData);
+            
         }
 
 

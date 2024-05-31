@@ -10,17 +10,40 @@ export default {
         return {
             token:usercontext.token,
             routines:[],
-            storedRoutines:[],
+            storedRoutines: { exercises: [] },
             modalRemoveCurrentRoutine:false,
             modalAddCurrentRoutine:false,
             rutine_name:"Nombre de la rutina",
-            user_id:usercontext.id
+            user_id:usercontext.id,
+            modalRemoveUserRoutine:false,
+            modalEditUserRoutine:false,
+            routineSelectedId:0,
+            editRoutineSelected: { exercises: [] }, 
+            editRoutineID:0
         }
+    },
+
+    
+    mounted() {
+
+        this.getUserRoutines()
+
+        const storedData = localStorage.getItem('currentRoutine')
+
+        if (storedData) {
+            this.storedRoutines = JSON.parse(storedData)
+
+        console.log("stored",this.storedRoutines)
+        }
+
     },
     
     methods: {
 
-        
+        setCurrentRoutine(routine) {
+            localStorage.setItem('currentRoutine', JSON.stringify(routine));
+            this.storedRoutines = routine;
+        },
 
         async getUserRoutines(){
 
@@ -34,7 +57,6 @@ export default {
                 })
                 if (response.ok) {
                         const responseData = await response.json();
-                        console.log(responseData)
                         this.routines = responseData
 
                     } else {
@@ -60,7 +82,6 @@ export default {
                 })
                 if (response.ok) {
                         const responseData = await response.json();
-                        console.log(responseData)
                         this.getUserRoutines()
 
                     } else {
@@ -76,14 +97,12 @@ export default {
             try {
                 const routineData = {
                     routine_name: this.rutine_name,
-                    exercises: this.storedRoutines.exercises.map(exercise => ({
-                        exercise_id: exercise.id,
-                        serie: exercise.serie,
-                        repetition: exercise.repetition
+                        exercises: this.storedRoutines.exercises.map(exercise => ({
+                            exercise_id: exercise.id,
+                            serie: exercise.serie,
+                            repetition: exercise.repetition
                     }))
                 };  
-
-                console.log(routineData);
                 const response = await fetch('http://localhost:8000/api/create-routine', {
                     method: 'POST',
                     headers: {
@@ -95,14 +114,13 @@ export default {
 
                 if (response.ok) {
                     const responseData = await response.json();
-                 
                     const new_routine_id = parseInt(responseData.routine)
 
                     this.addUserRoutines(new_routine_id)
-
                     localStorage.removeItem('currentRoutine')
                     this.storedRoutines.exercises = [];
                     this.closeAddCurrentRutineModal()
+
                 } else {
                     throw new Error('Error al agregar la rutina');
                 }
@@ -112,6 +130,41 @@ export default {
         },
 
 
+        openRemoveUserRoutine(routineId){
+            this.modalRemoveUserRoutine = true
+            this.routineSelectedId = routineId
+        },
+
+        closeRemoveUserRoutine(){
+            this.modalRemoveUserRoutine = false
+            this.routineSelectedId = 0
+        },
+
+// ------------------------------------------------------------------------------------
+
+        openEditUserRoutine(routine, id) {
+            this.modalEditUserRoutine = true;
+
+            this.editRoutineSelected = {
+                exercises: routine.exercises.map(exercise => ({
+                    id: exercise.id,
+                    name: exercise.name,
+                    image: exercise.image,
+                    repetition: exercise.repetitions ? exercise.repetitions : exercise.repetition,
+                    serie: exercise.series ? exercise.series : exercise.serie, 
+                }))
+            };
+
+            this.editRoutineID = id;
+        },
+
+        closeEditUserRoutine(){
+            this.modalEditUserRoutine = false
+            this.editRoutineSelected = { exercises: [] }; 
+        },
+
+// ------------------------------------------------------------------------------------
+
         closeAllCurrentRutineModal(){
             this.modalRemoveCurrentRoutine = false
         },
@@ -119,6 +172,8 @@ export default {
         openAllCurrentRutineModal(){
             this.modalRemoveCurrentRoutine = true
         },
+
+// ------------------------------------------------------------------------------------
 
         openAddCurrentRutineModal(){
             this.modalAddCurrentRoutine = true
@@ -128,13 +183,42 @@ export default {
             this.modalAddCurrentRoutine = false
         },
 
+       async removeUserRoutine(routine_id){
+            try{
+                const response = await fetch(`http://localhost:8000/api/delete-routine/${routine_id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${this.token}`
+                        },
+                    });
+
+                if (response.ok) {
+
+                    this.getUserRoutines()
+                    this.closeRemoveUserRoutine()
+
+                } else {
+                    throw new Error('Error al agregar la rutina');
+                }
+        
+            }catch(error){
+                console.error('Error al eliminar la rutina:', error);
+            }
+        }, 
+
+        editUserRoutine(exercises,id){
+            this.removeAllCurrentRutine();
+            this.removeUserRoutine(id);
+            this.setCurrentRoutine(exercises);  
+            this.closeEditUserRoutine();
+        },
 
         removeAllCurrentRutine(){
            
            localStorage.removeItem('currentRoutine')
-           this.storedRoutines = []
+           this.storedRoutines = { exercises: [] }; 
            this.closeAllCurrentRutineModal()
-           console.log(this.storedRoutines);
        },
 
         removeExercise(exerciseId) {
@@ -146,21 +230,6 @@ export default {
         }
     
     },
-
-    mounted() {
-
-        this.getUserRoutines()
-
-        const storedData = localStorage.getItem('currentRoutine')
-
-        if (storedData) {
-            this.storedRoutines = JSON.parse(storedData)
-
-           console.log("stored",this.storedRoutines)
-        }
-
-    }
-
 
 
 }
@@ -187,6 +256,42 @@ export default {
                     <div class="modal__btn">
                         <button @click="removeAllCurrentRutine" class="yes_btn"> Si </button>
                         <button @click="closeAllCurrentRutineModal" class="no_btn" > No </button>
+                    </div>
+                
+                </div>
+
+            </div>
+
+            <!-- Delete Routine Modal -->
+
+            <div class="modal" v-if="modalRemoveUserRoutine">
+
+                <div class="modal__content">
+                <a class="close_modal" @click="closeRemoveUserRoutine"> <i class="fa-solid fa-circle-xmark fa-2xl" style="color: #000000;"></i> </a>
+
+                    <p>¿Estás seguro de que quieres borrar la rutina seleccionada?</p>
+
+                    <div class="modal__btn">
+                        <button @click="removeUserRoutine(routineSelectedId)" class="yes_btn"> Si </button>
+                        <button @click="closeRemoveUserRoutine" class="no_btn" > No </button>
+                    </div>
+                
+                </div>
+
+            </div>
+
+            <!-- Edit Routine Modal -->
+
+            <div class="modal" v-if="modalEditUserRoutine">
+
+                <div class="modal__content">
+                <a class="close_modal" @click="closeEditUserRoutine"> <i class="fa-solid fa-circle-xmark fa-2xl" style="color: #000000;"></i> </a>
+
+                    <p class="small_letter">¿Estás seguro de que quieres editar esta rutina? Perderas la que estes creando en este momento</p>
+
+                    <div class="modal__btn">
+                        <button @click="editUserRoutine(editRoutineSelected,editRoutineID)" class="yes_btn"> Si </button>
+                        <button @click="closeEditUserRoutine" class="no_btn" > No </button>
                     </div>
                 
                 </div>
@@ -240,8 +345,8 @@ export default {
 
                     <div class="routine__btn">
 
-                        <button><i class="fa-solid fa-pen fa-2xl" style="color: #000000;"></i></button>
-                        <button><i class="fa-solid fa-trash fa-2xl" style="color: #000000;"></i></button>
+                        <button @click="openEditUserRoutine(routine,routine.routine_id)"><i class="fa-solid fa-pen fa-2xl" style="color: #000000;"></i></button>
+                        <button @click="openRemoveUserRoutine(routine.routine_id)"><i class="fa-solid fa-trash fa-2xl" style="color: #000000;"></i></button>
                     </div>
 
                 </section>
@@ -298,6 +403,10 @@ export default {
 
 @import url('https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap');
 
+.small_letter{
+    font-size: 15px;
+}
+
 .modal{
     position: absolute;
     display: flex;
@@ -309,7 +418,7 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 2;
+    z-index: 3;
 }
 
 .delete_exercise{
@@ -326,6 +435,7 @@ export default {
     cursor: pointer;
     background-color: white;
     z-index: 2;
+    
 }
 
 
@@ -333,6 +443,7 @@ export default {
     margin-top: 20px;
     display: flex;
     align-self: start;
+    cursor: pointer;
    
 }
 
@@ -356,11 +467,13 @@ export default {
 
 .yes_btn{
     background-color: rgba(64, 216, 119, 1);
+    cursor: pointer;
 }
 
 
 .no_btn{
     background-color: rgba(241, 90, 99, 1);
+    cursor: pointer;
 }
 
 .modal__content p{
@@ -407,7 +520,7 @@ export default {
     margin-top: 20px;
     display: flex;
     align-self: start;
-   
+    cursor: pointer;
 }
 
 .modal__content_2 p{
