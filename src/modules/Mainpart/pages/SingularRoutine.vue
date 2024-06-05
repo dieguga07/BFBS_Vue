@@ -41,21 +41,19 @@ export default{
                         'Authorization': `Bearer ${this.token}`
                     }
                 });
-                const data = await respuesta.json();
-                this.exercise = data;
-                console.log(this.exercise);
+                const data = await respuesta.json()
+                this.exercise = data
+                console.log(this.exercise)
             } catch (error) {
-                console.error("Error al obtener los productos:", error);
-            } finally {
-                this.loader = false;
+                console.error("Error al obtener los productos:", error)
             }
         },
 
 
         addToRoutine(exercise){
 
-            const seriesValue = this.series;
-            const repetitionsValue = this.repetitions;
+            const seriesValue = this.series
+            const repetitionsValue = this.repetitions
 
             const exerciseData = {
                 id: exercise.id,
@@ -66,15 +64,14 @@ export default{
             };
 
 
-            let currentRoutine = this.currentRutine.exercises;
+            let currentRoutine = this.currentRutine.exercises
 
-            currentRoutine.push(exerciseData);
+            currentRoutine.push(exerciseData)
 
-            this.currentRutine.exercises = currentRoutine;
+            this.currentRutine.exercises = currentRoutine
 
-            router.push("/private/myRoutines");
+            router.push("/private/myRoutines")
 
-            
         }
 
 

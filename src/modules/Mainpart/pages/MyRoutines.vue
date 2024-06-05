@@ -41,8 +41,8 @@ export default {
     methods: {
 
         setCurrentRoutine(routine) {
-            localStorage.setItem('currentRoutine', JSON.stringify(routine));
-            this.storedRoutines = routine;
+            localStorage.setItem('currentRoutine', JSON.stringify(routine))
+            this.storedRoutines = routine
         },
 
         async getUserRoutines(){
@@ -56,14 +56,14 @@ export default {
                             },
                 })
                 if (response.ok) {
-                        const responseData = await response.json();
+                        const responseData = await response.json()
                         this.routines = responseData
 
                     } else {
-                        throw new Error('Error al obtener las rutinas al usuario');
+                        throw new Error('Error al obtener las rutinas al usuario')
                     }    
             }catch (error){
-                console.error('Error al obtener las rutinas al usuario:', error);
+                console.error('Error al obtener las rutinas al usuario:', error)
             }
         },
 
@@ -118,14 +118,14 @@ export default {
 
                     this.addUserRoutines(new_routine_id)
                     localStorage.removeItem('currentRoutine')
-                    this.storedRoutines.exercises = [];
+                    this.storedRoutines.exercises = []
                     this.closeAddCurrentRutineModal()
 
                 } else {
-                    throw new Error('Error al agregar la rutina');
+                    throw new Error('Error al agregar la rutina')
                 }
             } catch (error) {
-                console.error('Error al agregar la rutina:', error);
+                console.error('Error al agregar la rutina:', error)
             }
         },
 
@@ -143,7 +143,7 @@ export default {
 // ------------------------------------------------------------------------------------
 
         openEditUserRoutine(routine, id) {
-            this.modalEditUserRoutine = true;
+            this.modalEditUserRoutine = true
 
             this.editRoutineSelected = {
                 exercises: routine.exercises.map(exercise => ({
@@ -153,14 +153,14 @@ export default {
                     repetition: exercise.repetitions ? exercise.repetitions : exercise.repetition,
                     serie: exercise.series ? exercise.series : exercise.serie, 
                 }))
-            };
+            }
 
             this.editRoutineID = id;
         },
 
         closeEditUserRoutine(){
             this.modalEditUserRoutine = false
-            this.editRoutineSelected = { exercises: [] }; 
+            this.editRoutineSelected = { exercises: [] }
         },
 
 // ------------------------------------------------------------------------------------
@@ -199,33 +199,33 @@ export default {
                     this.closeRemoveUserRoutine()
 
                 } else {
-                    throw new Error('Error al agregar la rutina');
+                    throw new Error('Error al agregar la rutina')
                 }
         
             }catch(error){
-                console.error('Error al eliminar la rutina:', error);
+                console.error('Error al eliminar la rutina:', error)
             }
         }, 
 
         editUserRoutine(exercises,id){
-            this.removeAllCurrentRutine();
-            this.removeUserRoutine(id);
-            this.setCurrentRoutine(exercises);  
-            this.closeEditUserRoutine();
+            this.removeAllCurrentRutine()
+            this.removeUserRoutine(id)
+            this.setCurrentRoutine(exercises)  
+            this.closeEditUserRoutine()
         },
 
         removeAllCurrentRutine(){
            
            localStorage.removeItem('currentRoutine')
-           this.storedRoutines = { exercises: [] }; 
+           this.storedRoutines = { exercises: [] }
            this.closeAllCurrentRutineModal()
        },
 
         removeExercise(exerciseId) {
-            const index = this.storedRoutines.exercises.findIndex(exercise => exercise.id === exerciseId);
+            const index = this.storedRoutines.exercises.findIndex(exercise => exercise.id === exerciseId)
             if (index !== -1) {
-                this.storedRoutines.exercises.splice(index, 1);
-                localStorage.setItem('currentRoutine', JSON.stringify(this.storedRoutines));
+                this.storedRoutines.exercises.splice(index, 1)
+                localStorage.setItem('currentRoutine', JSON.stringify(this.storedRoutines))
             }
         }
     

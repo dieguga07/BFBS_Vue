@@ -157,11 +157,6 @@ export default{
 
     },
 
-    watch: {
-       
-    }
-
-
 }
 
 </script>
@@ -253,6 +248,7 @@ export default{
 .hidden_label{
     user-select: none;
     color: transparent;
+    width: 0px;
 }
 
 .category_selection{
@@ -495,6 +491,34 @@ section .contenedor_exercises{
     height:35px;
 
 }
+
+@media screen and (max-width:700px){
+
+    .contenedor {
+        gap: 40px; 
+        margin-top: 60px;
+    }
+
+    .contenedor_exercises{
+        gap: 20px;
+        padding-bottom: 50px;
+    }
+
+    .modal__content{
+        width: 40vh;
+    }
+
+    .filter_btns{
+        
+        left: -26px;
+    }
+
+    .contenedor input{
+       width:180px;
+    }
+
+}
+
 
 
 </style>

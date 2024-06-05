@@ -45,27 +45,28 @@ export default{
 
                 if (response.ok) {
 
-                    const data = await response.json();
-
-                    userStore.setName(data.user.name);
-                    userStore.setEmail(data.user.email);
-                    userStore.setToken(data.token);
+                    const data = await response.json()
+                    console.log(data);
+                    userStore.setId(data.user.id)
+                    userStore.setName(data.user.name)
+                    userStore.setEmail(data.user.email)
+                    userStore.setToken(data.token)
 
                     if(data.user.admin !== 1){
-                        userStore.setAdmin(false);
+                        userStore.setAdmin(false)
                     }else{
-                        userStore.setAdmin(true);
+                        userStore.setAdmin(true)
                     }
 
-                    router.push("/private/myRoutines");
+                    router.push("/private/myRoutines")
 
                 } else {
-                    throw new Error('Error en el login');
+                    throw new Error('Error en el login')
                 }
             } catch (error) {
-                this.responseFail = "Credenciales invalidas";
+                this.responseFail = "Credenciales invalidas"
                 setTimeout(() => {
-                    this.responseFail = "";
+                    this.responseFail = ""
                 }, 10000);
             }
         },
@@ -91,7 +92,7 @@ export default{
             this.emailMessage ="The username must be composed of 4 letters or more."
             return this.validEmail = false
             }
-            this.emailMessage = "✔"
+            this.emailMessage = ""
             this.validEmail = true
         },
         
@@ -105,7 +106,7 @@ export default{
                 return this.validPassword = false
                 
             }
-            this.passwordMessage = "✔"
+            this.passwordMessage = ""
             this.validPassword = true
         }
 

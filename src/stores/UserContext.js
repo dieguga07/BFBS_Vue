@@ -15,6 +15,12 @@ export const UserContext = defineStore('userState',{
 
 
     actions:{
+
+      setId(newState) {
+        this.id = newState
+      },
+
+
       setName(newState) {
         this.name = newState
       },

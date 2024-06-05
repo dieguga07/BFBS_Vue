@@ -1,89 +1,189 @@
 <script>
+import router from '../../../router/router.js';
+import Toast from '../../Mainpart/components/Toast.vue';
+export default {
 
-import router from '../../../router/router';
+    components: { Toast },
 
+    data() {
+        return {
+            username: "",
+            email: "",
+            password: "",
+            validUsername: false,
+            validEmail: false,
+            validPassword: false,
+            usernameMessage: "",
+            emailMessage: "",
+            passwordMessage: "",
+            responseFail: "",
 
-export default{
-
-    props:{
-
+            showToast: false,
+            toastClass: "",
+            toastMessage: "",
+        };
     },
 
-    data(){
+    methods: {
+        goLogin() {
+            router.push("/public/login")
+        },
 
-        return{
+        async register() {
+            try {
+                const response = await fetch('http://localhost:8000/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(
+                        {   name: this.username, 
+                            email: this.email, 
+                            password: this.password 
+                        }
+                    )
+                });
 
-          
+                if (response.ok) {
+                    this.showToastMessage('green', 'Usuario registrado con éxito',2000)
+                    setTimeout(() => {
+                        router.push("/public/login")
+                    }, 2000);
+                   
+                } else {
+                    throw new Error('Error en el registro');
+                }
+            } catch (error) {
+                this.showToastMessage('red', 'Error al actualizar el usuario, revise que el correo no esta en uso')
+            }
+        },
+
+        sendForm() {
+            this.checkUsername()
+            this.checkEmail()
+            this.checkPassword()
+
+            if (this.validUsername && this.validEmail && this.validPassword) {
+                this.register()
+            }else{
+                this.showToastMessage("yellow","Revise el Formulario")
+            }
+        },
+
+        checkUsername() {
+            if (this.username.trim() === "") {
+                this.usernameMessage = "Este campo no puede estar vacío."
+                this.validUsername = false
+            } else if (this.username.length < 3) {
+                this.usernameMessage = "El nombre debe tener al menos 3 caracteres."
+                this.validUsername = false
+            } else {
+                this.usernameMessage = ""
+                this.validUsername = true
+            }
+        },
+
+        checkEmail() {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+            if (this.email.trim() === "") {
+                this.emailMessage = "Este campo no puede estar vacío."
+                this.validEmail = false;
+            } else if (!regex.test(this.email)) {
+                this.emailMessage = "Por favor, introduce un email válido."
+                this.validEmail = false
+            } else {
+                this.emailMessage = ""
+                this.validEmail = true
+            }
+        },
+
+        checkPassword() {
+            if (this.password.trim() === "") {
+                this.passwordMessage = "Este campo no puede estar vacío."
+                this.validPassword = false
+            } else if (this.password.length < 3) {
+                this.passwordMessage = "La contraseña debe tener al menos 3 caracteres."
+                this.validPassword = false
+            } else {
+                this.passwordMessage = ""
+                this.validPassword = true;
+            }
+        },
+
+        showToastMessage(toastClass, message) {
+            this.toastClass = toastClass
+            this.toastMessage = message
+            this.showToast = true
+
+            setTimeout(() => {
+                this.showToast = false
+            }, 5000)
+
+        },
+    },
+
+    watch: {
+        username: function () {
+            this.checkUsername()
+        },
+        email: function () {
+            this.checkEmail()
+        },
+        password: function () {
+            this.checkPassword()
         }
-    },
-
-    methods:{
-
-        goLogin(){
-            router.push("/public/login")
-        },
-
-        register(){
-            router.push("/public/login")
-        },
-
-    },
-
-
-    watch:{
-
     }
-
-
-}
-
-
-
+};
 </script>
-
 
 <template>
 
 <main>
 
-<section class="register_imgpart">
+    <Toast v-if="showToast" :toastClass="toastClass" :message="toastMessage" />
+    <section class="register_imgpart">
+        <p class="register_imgpart__title">¡EL CAMBIO EMPIEZA YA!</p>
+        <div class="register_imgpart__loginPart">
+            <p>¿YA TIENES CUENTA?</p>
+            <button @click="goLogin">LOGIN</button>
+        </div>
+    </section>
 
-    <p class="register_imgpart__title">¡EL CAMBIO EMPIEZA YA!</p>
+    <section class="register">
+        <p>REGISTRO</p>
+        <form class="register_form" @submit="sendForm">
+            <span class="error-message">{{ responseFail }}</span>
+            <input v-model="username" type="text" placeholder="User">
+            <span :class="validUsername ? 'accept-message' : 'error-message'">{{ usernameMessage }}</span>
 
-    <div class="register_imgpart__loginPart">
+            <input v-model="email" type="email" placeholder="Email">
+            <span :class="validEmail ? 'accept-message' : 'error-message'">{{ emailMessage }}</span>
 
-        <p>¿NO TIENES CUENTA AÚN?</p>
-        <button @click="goLogin">LOGIN</button>
+            <input v-model="password" type="password" placeholder="Password">
+            <span :class="validPassword ? 'accept-message' : 'error-message'">{{ passwordMessage }}</span>
 
-    </div>
-
-
-</section>
-
-
-<section class="register">
-
-    <p>REGISTRO</p>
-
-    <form class="register_form">
-
-        <input type="text" placeholder="User">
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Passwoord">
-
-        <button @click="register">EMPIEZA YA</button>
-
-    </form>
-
-</section>
-
+            <button type="submit">EMPIEZA YA</button>
+        </form>
+    </section>
 </main>
-
 </template>
 
 
 <style scoped>
 
+.error-message {
+    color: red;
+    font-size: 12px;
+    width: 200px;
+    text-align: center;
+}
+
+.accept-message {
+    color: green;
+    font-size: 12px;
+    width: 200px;
+    text-align: center;
+}
 
 
 main{
@@ -130,7 +230,7 @@ main{
     align-items: center;
     flex-direction: column;
     margin-top: 5vh;
-    gap: 7vh;
+    gap: 4vh;
 }
 
 .register_form input{
@@ -158,7 +258,7 @@ main{
     
     border: 1px solid white;
     color:rgb(3, 3, 3, 1);
-    background-color: rgba(19, 169, 73, 1);
+    background-color: rgb(255, 255, 255);
 
 }
 
