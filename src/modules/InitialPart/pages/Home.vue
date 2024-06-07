@@ -88,7 +88,7 @@ export default{
     }
     .container_image  {
         background-color:rgba(3, 3, 3, 1);
-        width: 100vw;
+        width: 100%;
         height: 450px;
         position: relative;
         overflow: hidden; 
