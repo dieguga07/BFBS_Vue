@@ -178,6 +178,7 @@ export default{
         .container_nav_links{
             width: 100%;
             justify-content: center;
+            padding-right: 0px;
         }
 
     }
