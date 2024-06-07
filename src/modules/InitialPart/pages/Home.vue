@@ -159,4 +159,27 @@ export default{
         text-decoration: none;
     }
 
+
+    @media screen and (max-width:700px){
+
+        .title{
+            font-size:15px;
+        }
+
+
+    }
+
+    @media screen and (max-width:600px){
+
+        .title{
+            display: none;
+        }
+
+        .container_nav_links{
+            width: 100%;
+            justify-content: center;
+        }
+
+    }
+
 </style>
