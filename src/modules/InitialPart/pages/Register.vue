@@ -25,6 +25,7 @@ export default {
     },
 
     methods: {
+
         goLogin() {
             router.push("/public/login")
         },
@@ -120,6 +121,10 @@ export default {
             }, 5000)
 
         },
+
+        goBack() {
+            this.$router.go(-1)
+        }
     },
 
     watch: {
@@ -163,6 +168,8 @@ export default {
             <span :class="validPassword ? 'accept-message' : 'error-message'">{{ passwordMessage }}</span>
 
             <button type="submit">EMPIEZA YA</button>
+
+            <p @click="goBack" class="goBack_btn">Go back</p>
         </form>
     </section>
 </main>
@@ -170,6 +177,13 @@ export default {
 
 
 <style scoped>
+
+.goBack_btn{
+    font-size: 14px;
+    color:rgba(19, 169, 73, 1);
+    border-bottom: 2px solid  rgba(19, 169, 73, 1); 
+    cursor: pointer;
+}
 
 .error-message {
     color: red;
@@ -255,10 +269,9 @@ main{
 }
 
 .register_form button:hover{
-    
     border: 1px solid white;
     color:rgb(3, 3, 3, 1);
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(19, 169, 73, 1);
 
 }
 
@@ -320,7 +333,17 @@ input:focus{
     outline: none;
 }
 
+@media screen and (max-width:540px){
 
+.register_imgpart{
+    display: none;
+}
+
+.register{
+    width: 100%;
+}
+
+}
 
 
 </style>

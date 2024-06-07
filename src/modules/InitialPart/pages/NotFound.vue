@@ -58,7 +58,7 @@ img {
 }
 
 .rotating {
-    animation: spin 8s linear infinite;
+    animation: spin 4s linear infinite;
 }
 
 @keyframes spin {

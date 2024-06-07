@@ -9,6 +9,7 @@ export default{
         const usercontext = UserContext()
         return {
             username:usercontext.name,
+            userId:usercontext.id,
             admin:usercontext.admin,
             selection: "myRoutines",
         }
@@ -17,25 +18,53 @@ export default{
     methods: {
 
         changeSelection(selection) {
-            switch (selection) {
-                case 'myRoutines':
-                    this.selection = 'myRoutines';
-                    break;
-                case 'makeRoutines':
-                    this.selection = 'makeRoutines';
-                    break;
-                case 'adminPanel':
-                    this.selection = 'adminPanel';
-                    break;  
-            }
+            this.selection = selection;
         },
 
         logout(){
             localStorage.removeItem('user');
             router.push("/public/login")
-        }
+        },
+        updateSelection() {
+            const currentPath = this.$route.path;
+            if (currentPath.includes("myRoutines")) {
+                this.selection = 'myRoutines'
+            } else if (currentPath.includes("makeRoutines")) {
+                this.selection = 'makeRoutines'
+            } else if (currentPath.includes("adminPanel")) {
+                this.selection = 'adminPanel'
+            }
+        },
+        async deleteUser(){
+            console.log('Delete account clicked');
+            try{
+                const response = await fetch(`http://localhost:8000/api/delete-account/${this.userId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${this.token}`
+                        },
+                    });
 
+                if (response.ok) {
+                    const message = await response.json();  
+                } else {
+                    throw new Error('Error al agregar la rutina');
+                }
+            }catch(error){
+                console.error('Error al eliminar la rutina:', error);
+            }
+        }, 
     },
+
+    mounted(){
+        this.updateSelection()
+    },
+    watch: {
+        $route(to, from) {
+            this.updateSelection()
+        }
+    }
 
 
 }
@@ -68,7 +97,7 @@ export default{
 
                         <div class="user_section oculto">
                             <p @click="logout">Cerrar sesión <i class="fa-solid fa-arrow-right-from-bracket" style="color: #000000;"></i></p>
-                            <p id="delete_account">Eliminar cuenta</p>
+                            <p @click="deleteUser" id="delete_account">Eliminar cuenta</p>
                         </div>
 
                     </div>
@@ -86,8 +115,8 @@ export default{
             </ul>
 
             <ul>
-                <li @click="changeSelection" :class="{ 'select' : selection === true }"><router-link to="/private/myRoutines">Mis rutinas</router-link></li>
-                <li @click="changeSelection" :class="{ 'select' : selection === false }"><router-link to="/private/makeRoutines">Hacer rutinas</router-link></li>
+                <li @click="changeSelection('myRoutines')" :class="{ 'select' : selection === 'myRoutines' }"><router-link to="/private/myRoutines">Mis rutinas</router-link></li>
+                <li @click="changeSelection('makeRoutines')" :class="{ 'select' : selection === 'makeRoutines' }"><router-link to="/private/makeRoutines">Hacer rutinas</router-link></li>
             </ul>
 
             <ul>

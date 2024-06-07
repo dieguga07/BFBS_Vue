@@ -108,6 +108,9 @@ export default{
             }
             this.passwordMessage = ""
             this.validPassword = true
+        },
+        goBack() {
+            this.$router.go(-1)
         }
 
     },
@@ -166,6 +169,9 @@ watch:{
         
         <button @click="sendForm">ENTRA</button>
 
+        <p @click="goBack" class="goBack_btn">Go back</p>
+
+
     </form>
 
 </section>
@@ -193,7 +199,13 @@ watch:{
     text-align: center;
 }
 
-
+.goBack_btn{
+    font-size: 14px;
+    color:rgba(19, 169, 73, 1);
+    border-bottom: 2px solid  rgba(19, 169, 73, 1); 
+    cursor: pointer;
+    margin-top: 20px;
+}
 
 main{
     display: flex;
@@ -331,6 +343,18 @@ main{
 
 input:focus{
     outline: none;
+}
+
+@media screen and (max-width:540px){
+
+.login_imgpart{
+    display: none;
+}
+
+.login{
+    width: 100%;
+}
+
 }
 
 </style>
