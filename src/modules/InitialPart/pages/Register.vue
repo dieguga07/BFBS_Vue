@@ -37,25 +37,35 @@ export default {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(
-                        {   name: this.username, 
-                            email: this.email, 
-                            password: this.password 
-                        }
-                    )
+                    body: JSON.stringify({
+                        name: this.username,
+                        email: this.email,
+                        password: this.password
+                    })
                 });
 
+                const responseData = await response.json();
+
                 if (response.ok) {
-                    this.showToastMessage('green', 'Usuario registrado con éxito',2000)
+                    this.showToastMessage('green', 'Usuario registrado con éxito', 2000);
                     setTimeout(() => {
-                        router.push("/public/login")
+                        router.push("/public/login");
                     }, 2000);
-                   
                 } else {
-                    throw new Error('Error en el registro');
+                    if (response.status === 422) {
+                        const errors = responseData.errors;
+                        if (errors.email) {
+                            this.showToastMessage('red', 'El correo electrónico ya está en uso');
+                        } else {
+                            this.showToastMessage('red', 'Error en la validación: ' + JSON.stringify(errors));
+                        }
+                    } else {
+                        this.showToastMessage('red', responseData.msg || 'Error en el registro');
+                    }
                 }
             } catch (error) {
-                this.showToastMessage('red', 'Error al actualizar el usuario, revise que el correo no esta en uso')
+                console.error('Error en el registro:', error);
+                this.showToastMessage('red', 'Error al registrar el usuario, revise que el correo no está en uso');
             }
         },
 

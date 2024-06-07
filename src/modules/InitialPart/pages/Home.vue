@@ -20,6 +20,8 @@ export default{
 
    <nav class="container_nav">
 
+        <p class="title"> BE <span style="color:rgba(64, 216, 119, 1)">FITTER</span> BE <span style="color:rgba(64, 216, 119, 1)">STRONGER</span></p>
+
     <ul class="container_nav_links">
 
         <li class="container_nav_links__login"> 
@@ -35,7 +37,9 @@ export default{
 
    <section class="container_image">
        
-    <img src="../../../assets/images/Frame 4.png" alt="fondo">
+    <video autoplay muted loop class="">
+        <source src="../../../assets/images/video/OUTWORK EVERYONE, AGAIN AND AGAIN - Motivational Speech (Marcus Elevation Taylor).mp4" type="video/mp4">
+    </video>
    </section>
 
    <section class="container_start">
@@ -53,89 +57,106 @@ export default{
 
 
 <style scoped>
+    @import url('https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap');
+    .title{
+        color: white;
+        position: absolute;
+        top: 40px;
+        left: 30px;
+        font-family: "Goldman", sans-serif;
+        font-size:20px;
+    }
 
-main{
-    background-color: rgba(3, 3, 3, 1);
-    height: 100vh;
-}
-
-section{
-    width: 100%;
-   
-}
-.container_image  {
-    background-color:blue;
-    width: 100%;
-    height: 450px;
+       
     
-}
 
-.container_image img {
- 
-    width: 100%;
-    height: 100%;
+    main{
+        background-color: rgba(3, 3, 3, 1);
+        height: 100vh;
+        font-family: "Goldman", sans-serif;
+    }
 
-}
+    .nav-link:hover{
+        color:rgba(64, 216, 119, 1) ;
+    }
 
-.container_nav{
-    width: 100%;
-    height: 96px;
-    background-color: rgba(3, 3, 3, 1);
-    display: flex;
-    align-items: center;
-    justify-content: end;
-}
+    section{
+        width: 100%;
+        font-family: "Goldman", sans-serif;
+       
+    }
+    .container_image  {
+        background-color:rgba(3, 3, 3, 1);
+        width: 100vw;
+        height: 450px;
+        position: relative;
+        overflow: hidden; 
+    }
 
-.container_start{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: "Goldman", sans-serif;
-    font-size: 25px;
-    font-style: normal;
-    font-weight: 400;
-    background-color: rgba(3, 3, 3, 1);
-    height: 50px;
-}
+     video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
-.container_start a {
-    color: white;
-    text-decoration: none;
-}
+    .container_nav{
+        width: 100%;
+        height: 96px;
+        background-color: rgba(3, 3, 3, 1);
+        display: flex;
+        align-items: center;
+        justify-content: end;
+    }
 
-.container_nav_links{
-    
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    flex-direction: row;
-    list-style: none;
-    padding-right: 20px;
-    gap: 20px;
-    height: 100px;
-    color: rgb(252, 252, 252);
+    .container_start{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Goldman", sans-serif;
+        font-size: 25px;
+        font-style: normal;
+        font-weight: 400;
+        background-color: rgba(3, 3, 3, 1);
+        height: 50px;
+    }
 
-}
+    .container_start a {
+        color: white;
+        text-decoration: none;
+    }
 
-.container_nav_links__login a{
-    color: white;
-    font-family: "Goldman", sans-serif;
-    font-size: 25px;
-    font-style: normal;
-    font-weight: 400;
-    text-decoration: none;
-    
-}
+    .container_nav_links{
+        
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        flex-direction: row;
+        list-style: none;
+        padding-right: 20px;
+        gap: 20px;
+        height: 100px;
+        color: rgb(252, 252, 252);
 
-.container_nav_links__register a{
-    color: rgba(64, 216, 119, 1);
-    font-family: "Goldman", sans-serif;
-    font-size: 25px;
-    font-style: normal;
-    font-weight: 400;
-    text-decoration: none;
-}
+    }
+
+    .container_nav_links__login a{
+        color: white;
+        font-family: "Goldman", sans-serif;
+        font-size: 25px;
+        font-style: normal;
+        font-weight: 400;
+        text-decoration: none;
+        
+    }
+
+    .container_nav_links__register a{
+        color: rgba(64, 216, 119, 1);
+        font-family: "Goldman", sans-serif;
+        font-size: 25px;
+        font-style: normal;
+        font-weight: 400;
+        text-decoration: none;
+    }
 
 </style>

@@ -35,26 +35,6 @@ export default{
                 this.selection = 'adminPanel'
             }
         },
-        async deleteUser(){
-            console.log('Delete account clicked');
-            try{
-                const response = await fetch(`http://localhost:8000/api/delete-account/${this.userId}`, {
-                        method: 'DELETE',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${this.token}`
-                        },
-                    });
-
-                if (response.ok) {
-                    const message = await response.json();  
-                } else {
-                    throw new Error('Error al agregar la rutina');
-                }
-            }catch(error){
-                console.error('Error al eliminar la rutina:', error);
-            }
-        }, 
     },
 
     mounted(){
@@ -96,8 +76,7 @@ export default{
                         <i class="fa-solid fa-gear fa-2xl" style="color: #ffffff;"></i>
 
                         <div class="user_section oculto">
-                            <p @click="logout">Cerrar sesión <i class="fa-solid fa-arrow-right-from-bracket" style="color: #000000;"></i></p>
-                            <p @click="deleteUser" id="delete_account">Eliminar cuenta</p>
+                            <p @click="logout" > Cerrar sesión <i class="fa-solid fa-arrow-right-from-bracket" style="color: #000000;"></i> </p>
                         </div>
 
                     </div>
@@ -127,9 +106,8 @@ export default{
 
                         <div class="user_section oculto">
                             <p @click="logout">Cerrar sesión <i class="fa-solid fa-arrow-right-from-bracket" style="color: #000000;"></i></p>
-                            <p id="delete_account">Eliminar cuenta</p>
                         </div>
-
+ 
                     </div>
 
                 </li>
