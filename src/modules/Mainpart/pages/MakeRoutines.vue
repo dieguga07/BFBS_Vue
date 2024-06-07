@@ -218,7 +218,7 @@ export default{
                 <div class="card__btns">
 
                     <a @click="pushexercise(exercise)"><img src="../../../assets/images/plus.png" alt="añadir"></a>
-                    <a @click="showExerciseInfoModal(exercise)"> <img src="../../../assets/images/info.spng" alt="info"> </a>
+                    <a @click="showExerciseInfoModal(exercise)"> <img src="../../../assets/images/info.png" alt="info"> </a>
                     
                 </div>
 
