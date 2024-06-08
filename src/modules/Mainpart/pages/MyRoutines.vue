@@ -39,7 +39,7 @@ export default {
 
             console.log("stored",this.storedRoutines)
         }else {
-            this.current_routine.removeExercises()
+            this.currentRoutine.removeExercises()
         }
 
     },
@@ -227,7 +227,7 @@ export default {
            localStorage.removeItem('currentRoutine')
            this.storedRoutines = { exercises: [] }
            this.closeAllCurrentRutineModal()
-           this.current_routine.removeExercises()
+           this.currentRoutine.removeExercises()
        },
 
         removeExercise(exerciseId) {
@@ -241,7 +241,7 @@ export default {
         clearCurrentRoutine() {
             localStorage.removeItem('currentRoutine')
             this.storedRoutines = { exercises: [] }
-            this.current_routine.removeExercises()
+            this.currentRoutine.removeExercises()
         }
                 
 
