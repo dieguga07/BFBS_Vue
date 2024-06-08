@@ -2,6 +2,8 @@
 import UserNavbar from '../components/UserNavbar.vue';
 import Footer from '../../InitialPart/components/Footer.vue';
 import { UserContext } from '../../../stores/UserContext';
+import { CurrentRoutine } from '../../../stores/CurrentRoutine';
+
 export default {
     components: { UserNavbar, Footer },
 
