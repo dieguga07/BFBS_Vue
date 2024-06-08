@@ -14,6 +14,7 @@ export default {
             token:usercontext.token,
             routines:[],
             storedRoutines: { exercises: [] },
+            currentRoutine: currentRoutine, 
             modalRemoveCurrentRoutine:false,
             modalAddCurrentRoutine:false,
             current_routine:currentRoutine.exercises,
@@ -38,8 +39,6 @@ export default {
             this.storedRoutines = JSON.parse(storedData)
 
             console.log("stored",this.storedRoutines)
-        }else {
-            this.currentRoutine.removeExercises()
         }
 
     },
