@@ -32,7 +32,7 @@ export default {
 
         async register() {
             try {
-                const response = await fetch('http://localhost:8000/api/register', {
+                const response = await fetch('https://bfbslaravel-production.up.railway.app/api/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

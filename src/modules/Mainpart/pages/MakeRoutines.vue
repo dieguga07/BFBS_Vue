@@ -20,7 +20,7 @@ export default{
         searchTerm: '',
         page:1,
         lastPage:false,
-        url:`http://localhost:8000/api/exercise?page=${this.page}`,
+        url:`https://bfbslaravel-production.up.railway.app/api/exercise?page=${this.page}`,
         category: "main",
         userSearch:"",
         defaultImage: "../../../assets/images/pesas.jpg",
@@ -61,42 +61,42 @@ export default{
         async brazosCategory(){
             this.page = 1
             this.category = "brazos"
-            const brazosUrl = `http://localhost:8000/api/exercise-category/brazos?page=${this.page}`
+            const brazosUrl = `https://bfbslaravel-production.up.railway.app/api/exercise-category/brazos?page=${this.page}`
             await this.getExercises(brazosUrl)
         },
 
         async piernasCategory(){
             this.page = 1
             this.category = "piernas"
-            const piernasUrl = `http://localhost:8000/api/exercise-category/piernas?page=${this.page}`
+            const piernasUrl = `https://bfbslaravel-production.up.railway.app/api/exercise-category/piernas?page=${this.page}`
             await this.getExercises(piernasUrl)
         },
 
         async abdomenCategory(){
             this.page = 1
             this.category = "abdomen"
-            const abdomenUrl = `http://localhost:8000/api/exercise-category/abdomen?page=${this.page}`
+            const abdomenUrl = `https://bfbslaravel-production.up.railway.app/api/exercise-category/abdomen?page=${this.page}`
             await this.getExercises(abdomenUrl)
         },
 
         async pechoCategory(){
             this.page = 1
             this.category = "pecho"
-            const pechoUrl = `http://localhost:8000/api/exercise-category/pecho?page=${this.page}`
+            const pechoUrl = `https://bfbslaravel-production.up.railway.app/api/exercise-category/pecho?page=${this.page}`
             await this.getExercises(pechoUrl)
         },
 
         async espaldaCategory(){
             this.page = 1
             this.category = "espalda"
-            const espaldaUrl = `http://localhost:8000/api/exercise-category/espalda?page=${this.page}`
+            const espaldaUrl = `https://bfbslaravel-production.up.railway.app/api/exercise-category/espalda?page=${this.page}`
             await this.getExercises(espaldaUrl)
         },
 
         async hombrosCategory(){
             this.page = 1
             this.category = "hombros"
-            const hombrosUrl = `http://localhost:8000/api/exercise-category/hombros?page=${this.page}`
+            const hombrosUrl = `https://bfbslaravel-production.up.railway.app/api/exercise-category/hombros?page=${this.page}`
             await this.getExercises(hombrosUrl)
         },
 
@@ -104,7 +104,7 @@ export default{
         async allExercises(){
             this.page = 1
             this.category = "main"
-            const allUrl = `http://localhost:8000/api/exercise?page=${this.page}`
+            const allUrl = `https://bfbslaravel-production.up.railway.app/api/exercise?page=${this.page}`
             await this.getExercises(allUrl)
         },
 
@@ -112,7 +112,7 @@ export default{
             this.page = 1;
             this.category = "search";
             if (this.userSearch.trim() !== "") {
-                const searchUrl = `http://localhost:8000/api/exercise-search/search?query=${this.userSearch}&page=${this.page}`
+                const searchUrl = `https://bfbslaravel-production.up.railway.app/api/exercise-search/search?query=${this.userSearch}&page=${this.page}`
                 await this.getExercises(searchUrl)
             } else {
                 this.exercises = []
@@ -134,11 +134,11 @@ export default{
         async nextPage(category) {
             if (!this.lastPage && this.category !== "search") {
                 this.page += 1;
-                const nextPageUrl = category === "main" ? `http://localhost:8000/api/exercise?page=${this.page}` : `http://localhost:8000/api/exercise-category/${category}?page=${this.page}`
+                const nextPageUrl = category === "main" ? `https://bfbslaravel-production.up.railway.app/api/exercise?page=${this.page}` : `https://bfbslaravel-production.up.railway.app/api/exercise-category/${category}?page=${this.page}`
                 await this.getExercises(nextPageUrl)
             } else if ( !this.lastPage && this.category === "search") {
                 this.page += 1;
-                const searchUrl = `http://localhost:8000/api/exercise-search/search?query=${this.userSearch}&page=${this.page}`
+                const searchUrl = `https://bfbslaravel-production.up.railway.app/api/exercise-search/search?query=${this.userSearch}&page=${this.page}`
                 await this.getExercises(searchUrl)
             }
         },
@@ -146,11 +146,11 @@ export default{
         async previousPage(category) {
             if (this.page !== 1 && this.category !== "search") {
                 this.page -= 1
-                const previousPageUrl = category === 'main' ? `http://localhost:8000/api/exercise?page=${this.page}` : `http://localhost:8000/api/exercise/${category}?page=${this.page}`
+                const previousPageUrl = category === 'main' ? `https://bfbslaravel-production.up.railway.app/api/exercise?page=${this.page}` : `https://bfbslaravel-production.up.railway.app/api/exercise/${category}?page=${this.page}`
                 await this.getExercises(previousPageUrl)
             } else if (this.page !== 1 && this.category === "search") {
                 this.page -= 1
-                const searchUrl = `http://localhost:8000/api/exercise-search/search?query=${this.userSearch}&page=${this.page}`
+                const searchUrl = `https://bfbslaravel-production.up.railway.app/api/exercise-search/search?query=${this.userSearch}&page=${this.page}`
                 await this.getExercises(searchUrl);
             }
         },

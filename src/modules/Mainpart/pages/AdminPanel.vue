@@ -124,7 +124,7 @@ export default{
         async getAllUsers(){
             
             try {
-                const response = await fetch('http://localhost:8000/api/get-all-users', {
+                const response = await fetch('https://bfbslaravel-production.up.railway.app/api/get-all-users', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${this.token}`
@@ -148,7 +148,7 @@ export default{
         async getAllExercises(){
             
             try {
-                const response = await fetch('http://localhost:8000/api/get-all-exercises', {
+                const response = await fetch('https://bfbslaravel-production.up.railway.app/api/get-all-exercises', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${this.token}`
@@ -176,7 +176,7 @@ export default{
                 admin: this.userAdmin,
             }
             try {
-                const response = await fetch('http://localhost:8000/api/create-user', {
+                const response = await fetch('https://bfbslaravel-production.up.railway.app/api/create-user', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -203,7 +203,7 @@ export default{
 
         async createExercise() {
             try {
-                const response = await fetch('http://localhost:8000/api/create-exercise', {
+                const response = await fetch('https://bfbslaravel-production.up.railway.app/api/create-exercise', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -234,7 +234,7 @@ export default{
 
         async removeUser(user_id){
             try{
-                const response = await fetch(`http://localhost:8000/api/deleteUser/${user_id}`, {
+                const response = await fetch(`https://bfbslaravel-production.up.railway.app/api/deleteUser/${user_id}`, {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json',
@@ -265,7 +265,7 @@ export default{
 
         async removeExercise(exercise_id){
             try{
-                const response = await fetch(`http://localhost:8000/api/deleteExercise/${exercise_id}`, {
+                const response = await fetch(`https://bfbslaravel-production.up.railway.app/api/deleteExercise/${exercise_id}`, {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json',
@@ -403,7 +403,7 @@ export default{
 
         async editUser() {
             try {
-                const response = await fetch(`http://localhost:8000/api/edit-user/${this.SelectedUserId}`, {
+                const response = await fetch(`https://bfbslaravel-production.up.railway.app/api/edit-user/${this.SelectedUserId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -431,7 +431,7 @@ export default{
 
         async editExercise() {
             try {
-                const response = await fetch(`http://localhost:8000/api/updateExercise/${this.SelectedExerciseID}`, {
+                const response = await fetch(`https://bfbslaravel-production.up.railway.app/api/updateExercise/${this.SelectedExerciseID}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',

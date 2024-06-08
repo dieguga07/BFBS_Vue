@@ -6,7 +6,7 @@ const  AuthenticationState = async() => {
     const token = userStore.token
 
     try {
-        const response = await fetch('http://localhost:8000/api/validate-user', {
+        const response = await fetch('https://bfbslaravel-production.up.railway.app/api/validate-user', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,

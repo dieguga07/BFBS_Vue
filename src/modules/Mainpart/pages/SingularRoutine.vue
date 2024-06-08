@@ -36,7 +36,7 @@ export default{
 
     async getProductByID() {
             try {
-                const respuesta = await fetch(`http://localhost:8000/api/exercise/${this.id}`, {
+                const respuesta = await fetch(`https://bfbslaravel-production.up.railway.app/api/exercise/${this.id}`, {
                     headers: {
                         'Authorization': `Bearer ${this.token}`
                     }

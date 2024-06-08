@@ -48,7 +48,7 @@ export default {
         async getUserRoutines(){
 
             try{
-                const response = await fetch(`http://localhost:8000/api/get-user-routines/${this.user_id}`,{
+                const response = await fetch(`https://bfbslaravel-production.up.railway.app/api/get-user-routines/${this.user_id}`,{
                         method: 'GET',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ export default {
             const userId = parseInt(this.user_id)
 
             try{
-                const response = await fetch(`http://localhost:8000/api/create-user-routine/${userId}/${routine_id}`,{
+                const response = await fetch(`https://bfbslaravel-production.up.railway.app/api/create-user-routine/${userId}/${routine_id}`,{
                     method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ export default {
                             repetition: exercise.repetition
                     }))
                 };  
-                const response = await fetch('http://localhost:8000/api/create-routine', {
+                const response = await fetch('https://bfbslaravel-production.up.railway.app/api/create-routine', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -185,7 +185,7 @@ export default {
 
        async removeUserRoutine(routine_id){
             try{
-                const response = await fetch(`http://localhost:8000/api/delete-routine/${routine_id}`, {
+                const response = await fetch(`https://bfbslaravel-production.up.railway.app/api/delete-routine/${routine_id}`, {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json',
