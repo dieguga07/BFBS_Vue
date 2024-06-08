@@ -37,7 +37,9 @@ export default {
         if (storedData) {
             this.storedRoutines = JSON.parse(storedData)
 
-        console.log("stored",this.storedRoutines)
+            console.log("stored",this.storedRoutines)
+        }else {
+            this.current_routine.removeExercises()
         }
 
     },
@@ -89,10 +91,10 @@ export default {
                         this.getUserRoutines()
 
                     } else {
-                        throw new Error('Error al asignar rutina al usuario');
+                        throw new Error('Error al asignar rutina al usuario')
                     }
             }catch (error){
-                console.error('Error al asignar la rutina al usuario:', error);
+                console.error('Error al asignar la rutina al usuario:', error)
             }
         },
 
@@ -120,6 +122,7 @@ export default {
                     const responseData = await response.json();
                     const new_routine_id = parseInt(responseData.routine)
 
+                    this.clearCurrentRoutine();
                     this.addUserRoutines(new_routine_id)
                     localStorage.removeItem('currentRoutine')
                     this.storedRoutines.exercises = []
@@ -224,7 +227,7 @@ export default {
            localStorage.removeItem('currentRoutine')
            this.storedRoutines = { exercises: [] }
            this.closeAllCurrentRutineModal()
-           this.current_routine.exercises = []
+           this.current_routine.removeExercises()
        },
 
         removeExercise(exerciseId) {
@@ -233,8 +236,15 @@ export default {
                 this.storedRoutines.exercises.splice(index, 1)
                 localStorage.setItem('currentRoutine', JSON.stringify(this.storedRoutines))
             }
+        },
+
+        clearCurrentRoutine() {
+            localStorage.removeItem('currentRoutine')
+            this.storedRoutines = { exercises: [] }
+            this.current_routine.removeExercises()
         }
-    
+                
+
     },
 
 

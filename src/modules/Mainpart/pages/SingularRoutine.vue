@@ -55,7 +55,7 @@ export default {
 
             if (!this.isValidNumber(seriesValue) || !this.isValidNumber(repetitionsValue)) {
                 this.showToastMessage('red', 'Por favor, ingrese valores válidos (1-999) para series y repeticiones.')
-                return;
+                return
             }
 
             const exerciseData = {
