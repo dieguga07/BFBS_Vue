@@ -7,12 +7,14 @@ export default {
 
     data() {
         const usercontext = UserContext()
+        const currentRoutine = CurrentRoutine()
         return {
             token:usercontext.token,
             routines:[],
             storedRoutines: { exercises: [] },
             modalRemoveCurrentRoutine:false,
             modalAddCurrentRoutine:false,
+            current_routine:currentRoutine.exercises,
             rutine_name:"Nombre de la rutina",
             user_id:usercontext.id,
             modalRemoveUserRoutine:false,
@@ -120,6 +122,7 @@ export default {
                     localStorage.removeItem('currentRoutine')
                     this.storedRoutines.exercises = []
                     this.closeAddCurrentRutineModal()
+                    this.current_routine.exercises = []
 
                 } else {
                     throw new Error('Error al agregar la rutina')
@@ -219,6 +222,7 @@ export default {
            localStorage.removeItem('currentRoutine')
            this.storedRoutines = { exercises: [] }
            this.closeAllCurrentRutineModal()
+           this.current_routine.exercises = []
        },
 
         removeExercise(exerciseId) {

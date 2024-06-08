@@ -1,40 +1,40 @@
 <script>
-
 import UserNavbar from '../components/UserNavbar.vue';
 import Footer from '../../InitialPart/components/Footer.vue';
 import { UserContext } from '../../../stores/UserContext';
 import { CurrentRoutine } from '../../../stores/CurrentRoutine.js'
 import router from '../../../router/router.js'
+import Toast from '../components/Toast.vue';
 
-export default{
-
-    components: { UserNavbar, Footer },
+export default {
+    components: { UserNavbar, Footer, Toast },
 
     data() {
         const usercontext = UserContext();
         return {
-            token:usercontext.token,
-            id:null,
-            exercise:[],
-            currentRutine:CurrentRoutine(),
-            series: 0,
-            repetitions: 0
+            token: usercontext.token,
+            id: null,
+            exercise: [],
+            currentRutine: CurrentRoutine(),
+            series: null,
+            repetitions: null,
+            showToast: false,
+            toastClass: '',
+            toastMessage: ''
         }
     },
 
-   created() {
-    const { id } = this.$route.params
-    this.id = id
-
-   },
-
-   mounted(){
-        this.getProductByID()
+    created() {
+        const { id } = this.$route.params;
+        this.id = id;
     },
 
-   methods: {
+    mounted() {
+        this.getProductByID();
+    },
 
-    async getProductByID() {
+    methods: {
+        async getProductByID() {
             try {
                 const respuesta = await fetch(`https://bfbslaravel-production.up.railway.app/api/exercise/${this.id}`, {
                     headers: {
@@ -49,74 +49,85 @@ export default{
             }
         },
 
+        addToRoutine(exercise) {
+            const seriesValue = this.series;
+            const repetitionsValue = this.repetitions;
 
-        addToRoutine(exercise){
-
-            const seriesValue = this.series
-            const repetitionsValue = this.repetitions
+            if (!this.isValidNumber(seriesValue) || !this.isValidNumber(repetitionsValue)) {
+                this.showToastMessage('red', 'Por favor, ingrese valores válidos (1-999) para series y repeticiones.')
+                return;
+            }
 
             const exerciseData = {
                 id: exercise.id,
-                name:exercise.name,
-                image:exercise.image,
+                name: exercise.name,
+                image: exercise.image,
                 serie: seriesValue,
                 repetition: repetitionsValue
             };
 
-
             let currentRoutine = this.currentRutine.exercises
-
             currentRoutine.push(exerciseData)
-
             this.currentRutine.exercises = currentRoutine
 
-            router.push("/private/myRoutines")
+            this.showToastMessage('green', 'Rutina añadida', 2000)
+            setTimeout(() => {
+                this.goMakeroutines()
+            }, 2000)
+        },
 
-        }
+        isValidNumber(value) {
+            const pattern = /^[1-9][0-9]{0,2}$/
+            return pattern.test(value);
+        },
 
+        goMakeroutines() {
+            router.push("/private/makeRoutines")
+        },
 
-   }
+        showToastMessage(toastClass, message) {
+            this.toastClass = toastClass
+            this.toastMessage = message
+            this.showToast = true
 
-
+            setTimeout(() => {
+                this.showToast = false
+            }, 5000)
+        },
+    }
 }
-
 </script>
-
 
 <template>
 
+    <main>
+
+        <UserNavbar></UserNavbar>
 
 
-<main>
+        <section class="container">
 
-    <UserNavbar></UserNavbar>
+            <Toast v-if="showToast" :toastClass="toastClass" :message="toastMessage"/>
 
-    <section class="container">
+            <p>{{ exercise.name }}</p> 
+            <img :src="exercise.image" :alt="exercise.name">
 
-        
+            <form class="container_form" @submit.prevent="addToRoutine(exercise)">
 
-        <p>{{ exercise.name }}</p> 
+                <input type="text" placeholder="Series" v-model="series">
+                <input type="text" placeholder="Repetitions" v-model="repetitions">
+                
+                <button type="submit">AÑADIR EJERCICIO</button>
 
-        <img :src="exercise.image" :alt="exercise.name">
+            </form>
 
-        <form class="container_form">
+            <router-link to="/private/makeRoutines"><i class="fa-solid fa-xmark fa-2xl" style="color: #000000;"></i></router-link>
 
-            <input type="text" placeholder="Series" v-model="series">
+        </section>
 
-            <input type="text" placeholder="Repetitions"  v-model="repetitions">
+        <Footer></Footer>
 
-            <button @click="addToRoutine(exercise)">AÑADIR EJERCICIO</button>
-
-        </form>
-
-        <router-link to="/private/makeRoutines"><i class="fa-solid fa-xmark fa-2xl" style="color: #000000;"></i></router-link>
-
-    </section>
-   
-    <Footer></Footer>
-   
-</main>
-
+    </main>
 
 </template>
 
@@ -162,6 +173,12 @@ export default{
         font-family: "Goldman", sans-serif;
         font-style: normal;
         font-size: 20px;
+    }
+
+    button:hover{
+        background-color: white;
+        color:black;
+        border: 1px solid black;
     }
 
 }
