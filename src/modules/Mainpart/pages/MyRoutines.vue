@@ -385,9 +385,8 @@ export default {
                             <div class="routine__exercise" v-for="exercise in storedRoutines.exercises" :key="exercise.id">
 
                                 <p @click="removeExercise(exercise.id)" class="delete_exercise">x</p>
-
                                 <p>{{ exercise.name}}</p>
-                                <img :src="exercise.image ? exercise.image  : 'https://web-back.perfectgym.com/sites/default/files/styles/460x/public/equipment%20%286%29.jpg?itok=bC0T32-K' " :alt="exercise.name">
+                                <img :src="exercise.image ? exercise.image  : '../../../assets/images/pesas.jpg' " :alt="exercise.name">
                                 <p>{{ exercise.serie}} series</p>
                                 <p>{{ exercise.repetition}} repeticiones</p>
 
