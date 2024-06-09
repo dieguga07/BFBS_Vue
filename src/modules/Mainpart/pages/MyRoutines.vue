@@ -24,7 +24,8 @@ export default {
             modalEditUserRoutine:false,
             routineSelectedId:0,
             editRoutineSelected: { exercises: [] }, 
-            editRoutineID:0
+            editRoutineID:0,
+            imagenDefault:'../../../assets/images/pesas.jpg'
         }
     },
 
@@ -386,7 +387,7 @@ export default {
 
                                 <p @click="removeExercise(exercise.id)" class="delete_exercise">x</p>
                                 <p>{{ exercise.name}}</p>
-                                <img :src="exercise.image ? exercise.image  : '../../../assets/images/pesas.jpg' " :alt="exercise.name">
+                                <img :src="exercise.image ? exercise.image  : imagenDefault " :alt="exercise.name">
                                 <p>{{ exercise.serie}} series</p>
                                 <p>{{ exercise.repetition}} repeticiones</p>
 
