@@ -57,10 +57,10 @@ export default {
                         if (errors.email) {
                             this.showToastMessage('red', 'El correo electrónico ya está en uso');
                         } else {
-                            this.showToastMessage('red', 'Error en la validación: ' + JSON.stringify(errors));
+                            this.showToastMessage('red', 'Error en la validación: ');
                         }
                     } else {
-                        this.showToastMessage('red', responseData.msg || 'Error en el registro');
+                        this.showToastMessage('red','Error en el registro');
                     }
                 }
             } catch (error) {
@@ -156,6 +156,7 @@ export default {
 <main>
 
     <Toast v-if="showToast" :toastClass="toastClass" :message="toastMessage" />
+
     <section class="register_imgpart">
         <p class="register_imgpart__title">¡EL CAMBIO EMPIEZA YA!</p>
         <div class="register_imgpart__loginPart">
@@ -166,7 +167,7 @@ export default {
 
     <section class="register">
         <p>REGISTRO</p>
-        <form class="register_form" >
+        <form class="register_form" @submit.prevent="sendForm">
             <span class="error-message">{{ responseFail }}</span>
 
             <label for="username" class="hidden_label">Usuario</label>
@@ -181,7 +182,7 @@ export default {
             <input v-model="password" type="password" id="password" name="password" placeholder="Contraseña">
             <span :class="validPassword ? 'accept-message' : 'error-message'">{{ passwordMessage }}</span>
 
-            <button @click="sendForm">EMPIEZA YA</button>
+            <button type="submit">EMPIEZA YA</button>
 
             <p @click="goBack" class="goBack_btn">Atrás</p>
         </form>
