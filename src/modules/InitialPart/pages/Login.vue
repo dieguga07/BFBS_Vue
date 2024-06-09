@@ -169,7 +169,7 @@ watch:{
         
         <button @click="sendForm">ENTRA</button>
 
-        <p @click="goBack" class="goBack_btn">Go back</p>
+        <p @click="goBack" class="goBack_btn">Atrás</p>
 
 
     </form>

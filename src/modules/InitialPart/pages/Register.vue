@@ -183,7 +183,7 @@ export default {
 
             <button @click="sendForm">EMPIEZA YA</button>
 
-            <p @click="goBack" class="goBack_btn">Go back</p>
+            <p @click="goBack" class="goBack_btn">Atrás</p>
         </form>
     </section>
 </main>
