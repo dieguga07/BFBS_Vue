@@ -1,7 +1,8 @@
-# Vue 3 + Vite
+	
+Back ->https://github.com/dieguga07/BFBS_Laravel
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Figma -> https://www.figma.com/design/pI5Rz3ZpEqmyAEQMkE0WWL/BFBS-Project?node-id=0%3A1&t=xWqcrvSqtM8no15e-1
 
-## Recommended IDE Setup
+Despliegue -> https://bfbs-vue.vercel.app/?#/public/
 
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
+Documentación -> https://docs.google.com/document/d/1e7K1B6ZbYjG4ANvDufU0CvkVJ9ez8w6Rg-9w1wpgBI8/edit?usp=sharing
