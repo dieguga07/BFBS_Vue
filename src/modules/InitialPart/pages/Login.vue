@@ -159,12 +159,12 @@ watch:{
 
         <span class="error-message">{{ responseFail }}</span>
 
-        <input v-model="email" type="text" placeholder="Email">
-        
+        <label for="email" class="hidden_label">Email</label>
+        <input v-model="email" type="text" id="email" name="email" placeholder="Email">
         <span  :class=" validEmail ? 'accept-message' : 'error-message' " >{{ emailMessage }}</span>
 
-        <!-- <label for="password" class="login-label">Password</label> -->
-        <input v-model="password" type="password" placeholder="Password">
+        <label for="password" class="hidden_label">Contraseña</label>
+        <input v-model="password" type="password" id="password" name="password" placeholder="Contraseña">
         <span  :class=" validPassword ? 'accept-message' : 'error-message' " >{{ passwordMessage }}</span>
         
         <button @click="sendForm">ENTRA</button>
@@ -190,6 +190,11 @@ watch:{
     font-size: 12px;
     width: 200px;
     text-align: center;
+}
+
+.hidden_label{
+    user-select: none;
+    color: transparent;
 }
 
 .accept-message {

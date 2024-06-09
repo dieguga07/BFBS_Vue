@@ -166,18 +166,22 @@ export default {
 
     <section class="register">
         <p>REGISTRO</p>
-        <form class="register_form" @submit="sendForm">
+        <form class="register_form" >
             <span class="error-message">{{ responseFail }}</span>
-            <input v-model="username" type="text" placeholder="User">
+
+            <label for="username" class="hidden_label">Usuario</label>
+            <input v-model="username" type="text" id="username" name="username" placeholder="Usuario">
             <span :class="validUsername ? 'accept-message' : 'error-message'">{{ usernameMessage }}</span>
 
-            <input v-model="email" type="email" placeholder="Email">
+            <label for="email" class="hidden_label">Email</label>
+            <input v-model="email" type="email" id="email" name="email" placeholder="Email">
             <span :class="validEmail ? 'accept-message' : 'error-message'">{{ emailMessage }}</span>
 
-            <input v-model="password" type="password" placeholder="Password">
+            <label for="password" class="hidden_label">Contraseña</label>
+            <input v-model="password" type="password" id="password" name="password" placeholder="Contraseña">
             <span :class="validPassword ? 'accept-message' : 'error-message'">{{ passwordMessage }}</span>
 
-            <button type="submit">EMPIEZA YA</button>
+            <button @click="sendForm">EMPIEZA YA</button>
 
             <p @click="goBack" class="goBack_btn">Go back</p>
         </form>
@@ -193,6 +197,11 @@ export default {
     color:rgba(19, 169, 73, 1);
     border-bottom: 2px solid  rgba(19, 169, 73, 1); 
     cursor: pointer;
+}
+
+.hidden_label{
+    user-select: none;
+    color: transparent;
 }
 
 .error-message {
@@ -254,7 +263,7 @@ main{
     align-items: center;
     flex-direction: column;
     margin-top: 5vh;
-    gap: 4vh;
+    gap: 1vh;
 }
 
 .register_form input{
@@ -276,6 +285,7 @@ main{
     font-family: "Goldman", sans-serif;
     font-style: normal;
     font-size: 20px;
+    margin-top: 20px;
 }
 
 .register_form button:hover{

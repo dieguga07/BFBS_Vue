@@ -112,13 +112,14 @@ export default {
             <p>{{ exercise.name }}</p> 
             <img :src="exercise.image" :alt="exercise.name">
 
-            <form class="container_form" @submit.prevent="addToRoutine(exercise)">
+            <form class="container_form">
+                <label for="series" class="hidden_label">Series</label>
+                <input id="series" type="text" placeholder="Series" v-model="series">
 
-                <input type="text" placeholder="Series" v-model="series">
-                <input type="text" placeholder="Repetitions" v-model="repetitions">
+                <label for="repetitions" class="hidden_label">Repeticiones</label>
+                <input id="repetitions" type="text" placeholder="Repeticiones" v-model="repetitions">
                 
-                <button type="submit">AÑADIR EJERCICIO</button>
-
+                <button @click="addToRoutine(exercise)">AÑADIR EJERCICIO</button>
             </form>
 
             <router-link to="/private/makeRoutines"><i class="fa-solid fa-xmark fa-2xl" style="color: #000000;"></i></router-link>
@@ -135,6 +136,12 @@ export default {
 <style scoped>
 
 @import url('https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap');
+
+
+.hidden_label{
+    user-select: none;
+    color: transparent;
+}
 
 .container{
     display: flex;

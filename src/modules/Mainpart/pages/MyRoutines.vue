@@ -360,8 +360,8 @@ export default {
 
                     <div class="routine__btn">
 
-                        <button @click="openEditUserRoutine(routine,routine.routine_id)"><i class="fa-solid fa-pen fa-2xl" style="color: #000000;"></i></button>
-                        <button @click="openRemoveUserRoutine(routine.routine_id)"><i class="fa-solid fa-trash fa-2xl" style="color: #000000;"></i></button>
+                        <button value="editRutine" @click="openEditUserRoutine(routine,routine.routine_id)"><i class="fa-solid fa-pen fa-2xl" style="color: #000000;"></i></button>
+                        <button value="removeRoutine" @click="openRemoveUserRoutine(routine.routine_id)"><i class="fa-solid fa-trash fa-2xl" style="color: #000000;"></i></button>
                     </div>
 
                 </section>
@@ -397,8 +397,8 @@ export default {
 
                     <div class="routine__btn2">
 
-                        <button id="add" @click="openAddCurrentRutineModal"  ><i class="fa-solid fa-circle-plus fa-flip-horizontal fa-2xl" style="color: #000000;"></i></button>
-                        <button id="remove" @click="openAllCurrentRutineModal"> <i class="fa-solid fa-trash fa-2xl position_close" style="color: #000000;"></i></button>
+                        <button id="add" value="addCurrentRoutine" @click="openAddCurrentRutineModal"  ><i class="fa-solid fa-circle-plus fa-flip-horizontal fa-2xl" style="color: #000000;"></i></button>
+                        <button id="remove" value="removeCurrentRoutine" @click="openAllCurrentRutineModal"> <i class="fa-solid fa-trash fa-2xl position_close" style="color: #000000;"></i></button>
                     </div>
 
                 </section>
@@ -611,7 +611,7 @@ export default {
     height: 200px;
     width: calc(100% - 70px);
     overflow-x: scroll;
-    overflow-y: hidden; 
+    overflow-y: scroll; 
 }
 
 .routine_content::-webkit-scrollbar {
@@ -697,6 +697,16 @@ export default {
     font-family: "Goldman", sans-serif;
     font-style: normal;
 }
+
+
+@media screen and (max-width:400px){
+
+    .routine__btn button{
+        height: 35.99%;
+    }
+
+}
+
 
 </style>
   

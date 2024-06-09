@@ -1,7 +1,11 @@
 <script>
 import router from '../../../router/router';
+import Toast from '../../Mainpart/components/Toast.vue';
 
 export default {
+
+    components: { Toast },
+
     data() {
         return {
             email: "",
@@ -10,6 +14,9 @@ export default {
             validText: false,
             emailMessage: "",
             textMessage: "",
+            showToast: false,
+            toastClass: '',
+            toastMessage: ''
         }
     },
     methods: {
@@ -21,7 +28,10 @@ export default {
             this.checkEmail()
             this.checkText()
             if (this.validEmail && this.validText) {
+                this.showToastMessage('green', 'Gracias por contactar con nosotrso,esperamos poder ayudarle lo antes posible', 3000)
                 this.resetForm()
+            }else{
+                this.showToastMessage('red', 'Error al enviar la petición , intentelo de nuevo', 5000)
             }
         },
         checkEmail() {
@@ -54,10 +64,25 @@ export default {
             this.emailMessage = ""
             this.textMessage = ""
         },
+
         goBack() {
             this.$router.go(-1)
-        }
-    },watch:{
+        },
+
+        showToastMessage(toastClass, message) {
+            this.toastClass = toastClass
+            this.toastMessage = message
+            this.showToast = true
+
+            setTimeout(() => {
+                this.showToast = false
+            }, 5000)
+        },
+
+    },
+    
+    
+    watch:{
     email: function () {
       this.checkEmail()
     },
@@ -72,6 +97,8 @@ export default {
 
 <template>
     <main>
+        <Toast v-if="showToast" :toastClass="toastClass" :message="toastMessage"/>
+
         <section class="contact_imgpart">
             <p class="contact_imgpart__title">DO YOU HAVE ANY PROBLEM ?</p>
             <div class="contact_imgpart__registerPart">
@@ -83,13 +110,19 @@ export default {
         <section class="contact">
             <p>CONTACT US</p>
             <form class="contact_form" @submit="sendForm">
-                <input v-model="email" type="text" placeholder="Email">
+                <label for="email" class="hidden_label">Email</label>
+                <input v-model="email" type="text" id="email" name="email" placeholder="Email">
                 <span :class="validEmail ? 'accept-message' : 'error-message'">{{ emailMessage }}</span>
-                <textarea v-model="text" id="text" name="text" placeholder="Peticion"></textarea>
+
+                <label for="text" class="hidden_label">Petición</label>
+                <textarea v-model="text" id="text" name="text" placeholder="Petición"></textarea>
                 <span :class="validText ? 'accept-message' : 'error-message'">{{ textMessage }}</span>
-                <button type="submit">SEND</button>
+
+                <button type="submit">ENVIAR</button>
+
                 <p @click="goBack" class="goBack_btn">Go back</p>
             </form>
+
         </section>
     </main>
 </template>
@@ -104,6 +137,11 @@ main{
     width: 100%;
     background-color: rgb(3, 3, 3, 1);
     min-height: 100vh;
+}
+
+.hidden_label{
+    user-select: none;
+    color: transparent;
 }
 
 .error-message {
