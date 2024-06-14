@@ -86,10 +86,10 @@ export default{
 
         checkEmail(){
             if(this.email.trim() === "" ){
-            this.emailMessage = "This field cannot be empty."
+            this.emailMessage = "Este campo no puede estar vacío."
             return this.validEmail = false
             }else if(this.email.length < 4 ){
-            this.emailMessage ="The username must be composed of 4 letters or more."
+            this.emailMessage ="La email debe tener al menos 4 caracteres."
             return this.validEmail = false
             }
             this.emailMessage = ""
@@ -98,11 +98,11 @@ export default{
         
         checkPassword(){
             if(this.password.trim() === "" ){
-            this.passwordMessage = "This field cannot be empty."
+            this.passwordMessage = "Este campo no puede estar vacío."
             return this.validPassword = false
             }
             if(this.password.length < 3) {
-                this.passwordMessage = "The password must be composed of 3 letters or more."
+                this.passwordMessage = "La contraseña debe tener al menos 3 caracteres."
                 return this.validPassword = false
                 
             }
