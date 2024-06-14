@@ -89,7 +89,7 @@ export default{
             this.emailMessage = "Este campo no puede estar vacío."
             return this.validEmail = false
             }else if(this.email.length < 4 ){
-            this.emailMessage ="La email debe tener al menos 4 caracteres."
+            this.emailMessage ="El email debe tener al menos 4 caracteres."
             return this.validEmail = false
             }
             this.emailMessage = ""
